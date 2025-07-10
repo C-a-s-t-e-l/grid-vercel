@@ -116,19 +116,19 @@ async function fetchAndDisplayComments(storyId) {
         if (data.length === 0) {
             commentsContainer.innerHTML = '<p>No echoes yet. Be the first to leave a whisper.</p>';
         } else {
-            commentsContainer.innerHTML = data.map(comment => {
-                const commentDate = new Date(comment.created_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
-                return `
-                    <div class="comment-card">
-                        <p class="comment-text">${escapeHTML(comment.comment_text)}</p>
-                        <p class="comment-meta">By <span class="comment-author">${escapeHTML(comment.nickname)}</span> on <span class="comment-date">${commentDate}</span></p>
-                    </div>
-                `;
-            }).join('');
+         commentsContainer.innerHTML = data.map(comment => {
+    const commentDate = new Date(comment.created_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+    return `
+        <div class="comment-card">
+            <p class="comment-text">${linkify(comment.comment_text)}</p> 
+            <p class="comment-meta">By <span class="comment-author">${escapeHTML(comment.nickname)}</span> on <span class="comment-date">${commentDate}</span></p>
+        </div>
+    `;
+}).join('');
         }
     } catch (err) {
         commentsContainer.innerHTML = '<p>Could not load the echoes from the beyond.</p>';
@@ -137,15 +137,21 @@ async function fetchAndDisplayComments(storyId) {
 }
 
 function escapeHTML(str) {
-    return str.replace(/[&<>"']/g, function (match) {
-        return {
-            '&': '&',
-            '<': '<',
-            '>': '>',
-            '"': '"',
-            "'": "'"
-        }[match];
-    });
+  const p = document.createElement("p");
+  p.textContent = str;
+  return p.innerHTML;
+}
+
+function linkify(text) {
+  const escapedText = escapeHTML(text);
+  
+  const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])|(\bwww\.[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  
+  return escapedText.replace(urlRegex, function(url) {
+    const hyperLink = url.startsWith('www.') ? 'http://' + url : url;
+    
+    return `<a href="${hyperLink}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+  });
 }
 
 const commentForm = document.getElementById('comment-form');
