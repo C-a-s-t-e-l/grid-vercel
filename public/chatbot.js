@@ -66,15 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
         typingIndicator.innerHTML = '<span>.</span><span>.</span><span>.</span>';
         aiMessageElement.querySelector('p').appendChild(typingIndicator);
 
-       try {
-    const response = await fetch('https://eerie-grid.vercel.app/api/chat', { 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-            message: messageText,
-            history: chatHistory.slice(0, -1) 
-        }),
-    });
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    message: messageText,
+                    history: chatHistory.slice(0, -1) 
+                }),
+            });
 
             if (!response.ok) {
                 if (response.status === 503) throw new Error(await response.text());
