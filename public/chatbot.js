@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         aiMessageElement.querySelector('p').appendChild(typingIndicator);
 
        try {
-    const response = await fetch('https://eerie-grid.onrender.com/api/chat', { 
+    const response = await fetch('https://eerie-grid.vercel.app/api/chat', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
