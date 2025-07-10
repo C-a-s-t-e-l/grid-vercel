@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors'); 
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { createClient } = require('@supabase/supabase-js');
 
@@ -26,6 +27,27 @@ if (!supabaseUrl || !supabaseServiceKey || !ADMIN_SECRET) {
 }
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 const adminSupabase = createClient(supabaseUrl, supabaseServiceKey);
+
+const allowedOrigins = [
+    'https://eerie-grid.onrender.com', 
+    'https://eerie-grid.vercel.app', 
+    'http://127.0.0.1:5500', 
+    'http://localhost:3000' 
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions)); 
+
 
 app.use(express.json());
 app.use(express.static('public'));
