@@ -412,7 +412,7 @@ async function handleStorySubmit(event) {
             throw new Error(result.msg || 'An error occurred.');
         }
 
-        showNotificationModal('Your whisper has crossed the veil. It now echoes in the space between worlds, awaiting judgment.');
+        showNotificationModal('Your whisper has crossed the veil. It now echoes in the space between worlds, awaiting judgment.', 'success');
         document.getElementById('storyForm').reset();
         document.getElementById('nickname').value = localStorage.getItem('eerieGridNickname') || '';
         if (currentMarker) {
