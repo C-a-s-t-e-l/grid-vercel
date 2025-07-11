@@ -470,13 +470,10 @@
   color: var(--stamp-color);
 }
 
-/* ================================================= */
-/* --- VINTAGE HORROR COMMENTS & REACTIONS STYLES -- */
-/* ================================================= */
 .comments-section {
     margin-top: 40px;
     padding-top: 25px;
-    border-top: 2px dashed rgba(60, 48, 42, 0.2); /* Dashed line with ink color */
+    border-top: 2px dashed rgba(60, 48, 42, 0.2); 
     background-color: var(--primary-bg);
 }
 
@@ -498,10 +495,11 @@
 }
 
 .comments-container p{
-  color: var(--text-color);
+  color: black;
+  font-family: 'Special Elite', cursive;
+  font-weight: bold;
 }
 
-/* --- The Scrollable List of Comments --- */
 .comments-container {
     max-height: 300px;
     overflow-y: auto;
@@ -513,15 +511,14 @@
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* --- Individual Comment Card Styling (The "Note") --- */
 .comment-card {
-    background-color: #fdfaf2; /* Creamy paper color */
+    background-color: #fdfaf2; 
     padding: 15px 20px;
     border-radius: 2px;
     margin-bottom: 12px;
     border: 1px solid #e0dace;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    border-left: 4px solid var(--stamp-color); /* The red "file marker" */
+    border-left: 4px solid var(--stamp-color); 
 }
 
 .comment-text {
@@ -530,14 +527,14 @@
     margin-bottom: 12px;
     color: var(--ink-color);
     text-align: justify;
-    white-space: pre-wrap; /* Respects user line breaks */
+    white-space: pre-wrap;
 }
 
 .comment-meta {
     font-size: 0.85rem;
     color: #8a7a6f;
     text-align: right;
-    font-family: var(--font-narrative); /* Typewriter font */
+    font-family: var(--font-narrative); 
 }
 
 .comment-author {
@@ -545,7 +542,6 @@
     color: #493e36;
 }
 
-/* --- Comment Submission Form Styling (The "Form") --- */
 .comment-form {
     padding: 25px;
     background-color: rgba(249, 245, 236, 0.8);
@@ -559,7 +555,7 @@
 }
 
 .comment-form label {
-    font-family: var(--font-narrative); /* Typewriter font */
+    font-family: var(--font-narrative); 
     font-size: 1rem;
     color: var(--ink-color);
     margin-bottom: 8px;
@@ -587,7 +583,7 @@
 }
 
 .comment-form button[type="submit"] {
-    font-family: var(--font-narrative); /* Typewriter font */
+    font-family: var(--font-narrative); 
     font-size: 1rem;
     letter-spacing: 1px;
     color: #f5f1e9;
@@ -605,7 +601,6 @@
     background-color: var(--accent-hover);
 }
 
-/* --- Modal Footer & Reaction Area --- */
 .modal-document-footer {
     padding: 15px 25px;
     border-top: 1px solid #d4c8b8;
