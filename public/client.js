@@ -23,6 +23,7 @@ const modalLocation = document.getElementById('modal-story-location');
 const modalFullStory = document.getElementById('modal-full-story');
 const modalCloseButton = document.getElementById('modal-close-button');
 const modalAuthor = document.getElementById('modal-story-author'); 
+const modalDate = document.getElementById('modal-story-date'); 
 
 
 const notificationModal = document.getElementById('notification-modal');
@@ -34,17 +35,28 @@ const notificationCloseBtn = document.getElementById('notification-modal-close')
 
 function openStoryModal(story) {
 
-    if (!storyModal || !modalTitle || !modalLocation || !modalFullStory) {
-        console.error('Modal elements not found!');
+       if (!storyModal || !modalTitle || !modalLocation || !modalFullStory || !modalDate) {
+        console.error('One or more modal elements not found!');
         return;
     }
 
-     modalTitle.textContent = story.title || 'Untitled Story';
+    modalTitle.textContent = story.title || 'Untitled Story';
     
-    
+    if (story.created_at) {
+        const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+        const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+
+        const datePart = new Date(story.created_at).toLocaleDateString('en-US', dateOptions);
+        const timePart = new Date(story.created_at).toLocaleTimeString('en-US', timeOptions).toLowerCase();
+        
+        const formattedDateTime = `${datePart} - ${timePart}`;
+        modalDate.innerHTML = `<em></i> ${formattedDateTime}</em>`;
+    } else {
+        modalDate.innerHTML = '';
+    }
 
     modalLocation.innerHTML = `<em><i class="fas fa-map-pin"></i> ${story.location_name || 'Unknown Location'}</em>`;
-     modalAuthor.innerHTML = `<em><i class="fas fa-user-ghost"></i> By: ${story.nickname || 'Unknown'}</em>`;
+    modalAuthor.innerHTML = `<em>By: ${story.nickname || 'Unknown'}</em>`;
     const cleanStoryText = (story.full_story || '').replace(/\\n/g, '\n');
     const paragraphs = cleanStoryText.split('\n').filter(p => p.trim() !== '');
 
@@ -55,7 +67,6 @@ function openStoryModal(story) {
         p.textContent = paragraphText;
         modalFullStory.appendChild(p);
     });
-
 
     const commentStoryIdInput = document.getElementById('comment-story-id');
     if(commentStoryIdInput) {
@@ -68,12 +79,12 @@ function openStoryModal(story) {
     }
 
     fetchAndDisplayComments(story.id);
-
     setupReactionSystem(story.id);
 
+    // This part for reactions seems complex, make sure it's working as intended.
+    // Re-cloning buttons can be tricky. A better approach might be to use a single event listener on a parent element.
     const reactionButtons = document.querySelectorAll('.reaction-button');
     reactionButtons.forEach(button => {
- 
         const newButton = button.cloneNode(true);
         newButton.addEventListener('click', (event) => handleReactionClick(event, story.id));
         button.parentNode.replaceChild(newButton, button);
@@ -82,6 +93,7 @@ function openStoryModal(story) {
     storyModal.classList.remove('modal-hidden');
     storyModal.classList.add('modal-visible');
 }
+
 
 function showNotificationModal(message, type = 'error') { 
     if (!notificationModal) return;

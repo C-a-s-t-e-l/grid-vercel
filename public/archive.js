@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewOnGridButton = document.getElementById('modal-view-on-grid');
     const searchBar = document.getElementById('story-search-bar');
     const sortSelect = document.getElementById('sort-stories');
+    const modalDate = document.getElementById('modal-story-date'); 
 
     function formatDate(dateString) {
     const options = {
@@ -286,10 +287,16 @@ if (commentForm) {
         window.scrollTo(0, 0); 
     }
 
-
 function populateModal(storyId) {
     const storyData = fullStoryList.find(s => s.id == storyId);
     
+    const modalDate = document.getElementById('modal-story-date');
+
+    if (!storyData || !modalDate) {
+        console.error("Story data or modal date element not found.");
+        return;
+    }
+
     const commentStoryIdInput = document.getElementById('comment-story-id');
     if(commentStoryIdInput) {
         commentStoryIdInput.value = storyId;
@@ -298,12 +305,27 @@ function populateModal(storyId) {
     if(commentNicknameInput){
         commentNicknameInput.value = localStorage.getItem('eerieGridNickname') || '';
     }
-    if (!storyData) return;
 
     modalTitle.textContent = storyData.title;
+
+    if (storyData.created_at) {
+        const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+        const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+
+        const datePart = new Date(storyData.created_at).toLocaleDateString('en-US', dateOptions);
+        const timePart = new Date(storyData.created_at).toLocaleTimeString('en-US', timeOptions).toLowerCase();
+        
+        const formattedDateTime = `${datePart} - ${timePart}`;
+        modalDate.innerHTML = `<em> ${formattedDateTime}</em>`;
+    } else {
+        modalDate.innerHTML = '';
+    }
+
     modalLocation.innerHTML = `<em><i class="fas fa-map-pin"></i> ${storyData.location_name}</em>`;
     modalAuthor.innerHTML = `<em><i class="fas fa-user-ghost"></i> By: ${storyData.nickname || 'Unknown'}</em>`;
+    
     viewOnGridButton.dataset.storyId = storyData.id;
+
     const cleanStoryText = storyData.full_story.replace(/\\n/g, '\n');
     const paragraphs = cleanStoryText.split('\n').filter(p => p.trim() !== '');
     modalFullStory.innerHTML = ''; 
@@ -312,7 +334,9 @@ function populateModal(storyId) {
         p.textContent = paragraphText;
         modalFullStory.appendChild(p);
     });
+
     setupReactionSystem(storyId);
+
     const reactionButtons = document.querySelectorAll('.reaction-button');
     reactionButtons.forEach(button => {
         const newButton = button.cloneNode(true);

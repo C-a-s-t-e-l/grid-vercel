@@ -497,7 +497,7 @@ html {
   text-shadow: 0 0 5px var(--accent-hover);
 }
 #modal-story-location,
-#modal-story-author {
+#modal-story-author, #modal-story-date {
   font-family: var(--font-narrative);
   color: var(--text-muted);
   margin-bottom: 5px;
@@ -943,6 +943,14 @@ html {
 }
 
 @media (max-width: 480px) {
+
+  em{
+    font-size: 0.8rem;
+  }
+
+  .story-text-container p:first-of-type::first-letter{
+    font-size: 2.5em;
+  }
 
     .comment-text{
         font-size: 0.7rem;
