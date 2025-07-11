@@ -114,24 +114,31 @@ async function fetchAndDisplayComments(storyId) {
         if (error) throw error;
 
         if (data.length === 0) {
-            commentsContainer.innerHTML = '<p>No echoes yet. Be the first to leave a whisper.</p>';
+            commentsContainer.innerHTML = '<p class="no-comments">No echoes yet. Be the first to leave a whisper.</p>';
         } else {
-         commentsContainer.innerHTML = data.map(comment => {
-    const commentDate = new Date(comment.created_at).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    });
-    return `
-        <div class="comment-card">
-            <p class="comment-text">${linkify(comment.comment_text)}</p> 
-            <p class="comment-meta">By <span class="comment-author">${escapeHTML(comment.nickname)}</span> on <span class="comment-date">${commentDate}</span></p>
-        </div>
-    `;
-}).join('');
+            commentsContainer.innerHTML = data.map(comment => {
+                const commentDateTime = new Date(comment.created_at).toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true 
+                });
+
+                return `
+                    <div class="comment-card">
+                        <p class="comment-text">${linkify(comment.comment_text)}</p> 
+                        <p class="comment-meta">
+                            By <span class="comment-author">${escapeHTML(comment.nickname)}</span> 
+                            on <span class="comment-date">${commentDateTime}</span>
+                        </p>
+                    </div>
+                `;
+            }).join('');
         }
     } catch (err) {
-        commentsContainer.innerHTML = '<p>Could not load the echoes from the beyond.</p>';
+        commentsContainer.innerHTML = '<p class="no-comments">Could not load the echoes from the beyond.</p>';
         console.error('Error fetching comments:', err.message);
     }
 }
@@ -150,7 +157,7 @@ function linkify(text) {
   return escapedText.replace(urlRegex, function(url) {
     const hyperLink = url.startsWith('www.') ? 'http://' + url : url;
     
-    return `<a href="${hyperLink}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    return `<a href="${hyperLink}" target="_blank" rel="noopener noreferrer" style="color: white;">${url}</a>`;
   });
 }
 
