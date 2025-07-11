@@ -112,136 +112,85 @@
          <script src="chatbot.js"></script>
     <script>
         const loreArticles = [
-            {
-                id: 'balete-drive',
-                title: 'The Haunting of Balete Drive',
-                excerpt: 'An investigation into the Philippines\' most infamous haunted street. The White Lady, vanishing drivers, and the dark energy of the Balete trees.',
-                imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/7975Balete_Drive_Quezon_City_Landmarks_01.jpg/2560px-7975Balete_Drive_Quezon_City_Landmarks_01.jpg',
-                fullContent: "Balete Drive in Quezon City is more than just a street; it's a nexus of paranormal activity, eternally linked to the apparition of a White Lady. For decades, taxi drivers and late-night commuters have reported seeing a lone, spectral woman flagging them down, only to vanish from the rearview mirror moments later. \n\nOperatives believe the ancient Balete trees lining the road act as conduits, anchoring spirits to this plane. The most prominent theory suggests the ghost is the spirit of a woman who met a violent end on the road, her soul now trapped in a perpetual loop of seeking a ride she will never complete.",
-                operativeNotes: [
-                    "Activity peaks between midnight and 3:00 AM.",
-                    "Apparition is often preceded by a sudden drop in temperature and electronic malfunctions.",
-                    "Avoid looking in the rearview mirror if a lone passenger is picked up in the area.",
-                    "The presence is considered a Class-3 Residual Haunting; generally non-violent but causes extreme psychological distress."
-                ]
-            },
-            {
-                id: 'manila-film-center',
-                title: 'Tragedy at the Film Center',
-                excerpt: 'The dark history of a structure where workers were allegedly buried alive in cement. Listen to the whispers of their souls.',
-                imageSrc: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbFeHKUmD9c8tjfuhSZIOuFeT9GPTRC5zaD4qjnl8ACFigl3Lyc8SBxEsewCorzAe8ArEGD2MO0Q1FWNT_Xa7qbH0huFhSbZK57nYs44gQThVNjBpolrJXpKcxaNHmYZIz-IWtwjfPXqQ/s1600/FILM+CENTER.jpg',
-                fullContent: "On November 17, 1981, during the frantic, round-the-clock construction of the Manila Film Center, a scaffolding collapse sent dozens of workers plunging into wet, quick-drying cement. In the rush to meet the deadline for an international film festival, official reports claim all workers were recovered. \n\nHowever, persistent accounts from former construction crew and first responders claim that recovery efforts were halted to save time, entombing an unknown number of victims within the structure itself. Today, the building is a hotbed of paranormal claims, from disembodied cries for help to phantom touches and full-bodied apparitions of men in work clothes, forever sealed within their concrete tomb.",
-                operativeNotes: [
-                    "Auditory phenomena (screams, whispers) are the most common reported events.",
-                    "Poltergeist activity has been noted in the main lobby and theater.",
-                    "The site is a powerful source of psychic energy, often causing nausea and dread in sensitives.",
-                    "Entry is restricted, but thermal scans from the exterior have shown inexplicable cold spots matching human forms."
-                ]
-            },
-            {
-                id: 'biringan-city',
-                title: 'Biringan: The Lost City',
-                excerpt: 'A complete dossier on the mythical city that appears and vanishes in Samar. A portal to another dimension or a kingdom of elementals?',
-                imageSrc: 'https://salindila.wordpress.com/wp-content/uploads/2017/02/16976529_10202729337752083_1945290617_n.jpg',
-                fullContent: "Biringan is not on any map. It is an ethereal city, said to exist in a different dimension that occasionally overlaps with our own in the island of Samar. Those who have claimed to see it describe a sprawling metropolis of impossible architecture, lit by an unseen source and populated by beautiful, yet uncanny, beings. \n\nFishermen report seeing the city's glittering lights from the sea, only for it to vanish upon approach. Others tell stories of being invited into Biringan, returning to our world days or weeks later with no memory of the passage of time. It is believed to be the capital city of the Engkanto, powerful elementals who sometimes abduct humans to be their partners or servants.",
-                operativeNotes: [
-                    "Biringan is a dimensional anomaly, not a physical location.",
-                    "Entry into Biringan is often unintentional and can lead to permanent displacement in time.",
-                    "Engkanto from Biringan are known to be deceptive; do not accept food or gifts from them.",
-                    "Satellite imagery of the purported region shows occasional, unexplained energy signatures."
-                ]
-            },
-            {
-                id: 'pagpag',
-                title: 'The "Pagpag" Belief',
-                excerpt: "Never go straight home from a wake. Understand the critical importance of 'pagpag' to avoid being followed by lingering spirits.",
-                imageSrc: 'https://w0.peakpx.com/wallpaper/957/832/HD-wallpaper-look-behind-you-poe-shadow-man-eerie-spirit-ghost-doorway-scary-halloween-following.jpg',
-                fullContent: "The tradition of 'pagpag' (to shake off dirt) is a deeply ingrained supernatural safety protocol. It is believed that malevolent spirits and even the ghost of the deceased may follow mourners home from a wake or funeral. These entities, drawn to the emotional energy of the living, can bring misfortune, sickness, or paranormal disturbances to a household. \n\nBy stopping at a neutral location first—like a convenience store or a coffee shop—it is thought that the spirit will be confused or its trail 'shaken off', preventing it from following you to your final destination. To neglect this protocol is to extend an open invitation for the supernatural to cross your threshold.",
-                operativeNotes: [
-                    "The protocol is most critical when attending the wake of a victim of a violent or sudden death.",
-                    "The neutral location must be a place of mundane activity, not another home.",
-                    "It is a ritual of misdirection, not an exorcism.",
-                    "Agents have correlated a statistically significant number of minor hauntings with the failure to observe this tradition."
-                ]
-            }, {
-                id: 'diplomat-hotel',
-                title: 'Case File: Diplomat Hotel',
-                excerpt: 'The ruins of this Baguio hotel echo with a dark past—a seminary, a refuge, a site of wartime atrocities. The spirits here have never checked out.',
-                imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Diplomat_Hotel%2C_Baguio_City.jpg',
-                fullContent: "The Diplomat Hotel, perched atop Dominican Hill in Baguio, holds a history stained with blood. Originally a seminary and rest house, it became a refuge during World War II, only to witness the brutal massacre of its occupants by invading Japanese forces. Nuns and priests were reportedly beheaded within its walls.\n\nAfter being converted into a hotel, guests and staff reported countless paranormal encounters. Today, as a ruin, it is a playground for ghost hunters. Visitors report hearing cries from the second floor, seeing headless apparitions in priestly robes, and feeling an overwhelming sense of dread near the central fountain. It is considered one of the most actively haunted locations in the country.",
-                operativeNotes: [
-                    "Primary activity includes full-bodied apparitions and intelligent auditory phenomena.",
-                    "High EMF fluctuations are consistently recorded in the chapel and rooms on the second floor.",
-                    "The site is a convergence of residual and intelligent hauntings, making it highly unpredictable.",
-                    "Warning: Several operatives have reported being physically touched or pushed by an unseen force."
-                ]
-            },
-            {
-                id: 'sukob-curse',
-                title: 'The Curse of Sukob',
-                excerpt: 'Why is it forbidden for siblings to marry in the same year? A deep dive into the \'Sukob\' curse and the trail of misfortune it leaves behind.',
-                imageSrc: 'https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                fullContent: "'Sukob' translates to 'head-to-head' and refers to a powerful folk belief that prohibits siblings from marrying within the same calendar year. To defy this is to invite a curse that splits the luck meant for one couple between two, effectively diluting it and attracting misfortune.\n\nThe curse is said to manifest as financial ruin, marital strife, severe illness, or even the death of one of the newlyweds or their close family members. Another form of 'sukob' applies to marrying in the same year that a close family member dies, as it is seen as a sign of disrespect to the dead, who may lash out and bring bad luck to the union.",
-                operativeNotes: [
-                    "This is a deeply embedded cultural curse, its power seemingly derived from collective belief.",
-                    "The curse appears to target the 'weaker' of the two couples in terms of fortune or health.",
-                    "There are no known countermeasures or rituals to break the curse once invoked.",
-                    "Operatives are advised to respect this belief when dealing with local communities to maintain trust."
-                ]
-            },
-            {
-                id: 'anting-anting-talisman',
-                title: 'The Power of Anting-Anting',
-                excerpt: 'An analysis of the Philippines\' sacred talismans. How are these amulets created, consecrated, and what powers do they hold against the forces of darkness?',
-                imageSrc: 'https://live.staticflickr.com/3702/12093786154_1d85d4300e_b.jpg',
-                fullContent: "Anting-anting are Filipino talismans, amulets, or charms imbued with supernatural power. They are not mere trinkets; they are sacred objects that require consecration rituals, often performed during Holy Week in sacred locations like mountains or caves. Their powers vary, ranging from protection against physical harm (bullets, knives) and evil spirits, to granting the wearer incredible strength or charisma.\n\nThe symbols inscribed are often a syncretic blend of Catholic prayers, Latin phrases (known as 'oraciones'), and pre-colonial animist imagery. The efficacy of an anting-anting is said to depend heavily on the wearer's faith and the purity of their intentions.",
-                operativeNotes: [
-                    "Authentic anting-anting are difficult to acquire and must be 'fed' with prayers to maintain their power.",
-                    "They are particularly effective against lower-class entities like Tiyanak and Duwende.",
-                    "Some talismans have specific prohibitions (e.g., cannot be brought into a tavern or house of ill repute).",
-                    "Several field agents carry consecrated medallions as standard-issue protective gear."
-                ]
-            },
-            {
-                id: 'siquijor-island',
-                title: 'Siquijor: The Mystic Island',
-                excerpt: 'Known as the \'Island of Fire,\' Siquijor is a cradle of Philippine mysticism. Explore the world of its healers, sorcerers, and ancient rituals.',
-                imageSrc: 'https://i.imgur.com/83pZUNF.jpeg',
-                fullContent: "Siquijor, the 'Isla del Fuego' (Island of Fire), earned its name from the swarms of fireflies that once lit its shores. Today, the name has a more mystical connotation. The island is the undisputed center of supernatural lore in the Philippines, home to powerful healers (mananambal) who cure ailments caused by spirits, and fearsome sorcerers (mambabarang) who can inflict them.\n\nDuring Holy Week, practitioners from all over the country gather here to 're-charge' their powers and brew potions from sacred herbs, roots, and insects. While the island has modernized, the undercurrent of ancient magic remains potent. Visitors are advised to be respectful, as one can never be sure who they are talking to.",
-                operativeNotes: [
-                    "A clear distinction exists between 'white magic' (healing) and 'black magic' (curses).",
-                    "Love potions, known as 'gayuma', are a local specialty but are highly unpredictable and dangerous.",
-                    "Do not accept food or drink from strangers if you suspect ill intent.",
-                    "The island's soil is considered potent; many practitioners take some with them to augment their rituals."
-                ]
-            },
-            {
-                id: 'clark-hospital-haunting',
-                title: 'The Ghosts of Clark Hospital',
-                excerpt: 'Once a major US military medical facility, the abandoned Clark Air Base Hospital is now a ward for the dead. The ghosts of soldiers still roam its decaying halls.',
-                imageSrc: 'https://live.staticflickr.com/4054/4333068940_fbbfe3b50c_b.jpg',
-                fullContent: "The Clark Air Base Hospital served as a primary medical facility for American soldiers during the Vietnam War and beyond. Thousands of soldiers took their last breaths within its walls, their trauma and pain seeping into the very foundation of the building. After the eruption of Mt. Pinatubo led to the base's abandonment, the spirits were left to fester.\n\nReports from ghost hunters and trespassers are consistent and terrifying. Violent poltergeist activity, disembodied screams in English, and apparitions of wounded soldiers are commonplace. The energy is described as heavy and aggressive, a stark contrast to the more folkloric hauntings in other parts of the country. This is a place of pure, unfiltered human trauma.",
-                operativeNotes: [
-                    "This location records some of the highest and most consistent EVP (Electronic Voice Phenomena) readings in Asia.",
-                    "The hauntings are classified as intelligent and, in some cases, hostile.",
-                    "The morgue and the psychiatric ward are considered the epicenters of activity.",
-                    "All operatives entering the vicinity must undergo psychological evaluation before and after the mission."
-                ]
-            },
-            {
-                id: 'protocol-tabi-tabi-po',
-                title: 'Protocol: Tabi-Tabi Po',
-                excerpt: 'More than just words, "tabi-tabi po" is the most crucial protocol when treading on unseen territory. Understand the concept of respect and the consequences of trespass.',
-                imageSrc: 'https://i.imgur.com/kSDFk6I.jpeg',
-                fullContent: "'Tabi-tabi po' (roughly, 'Excuse me, please move aside') is the most fundamental verbal protocol for interacting with the unseen world in the Philippines. It is a phrase of respect, uttered when passing by places believed to be inhabited by spirits—anthills (punso), ancient trees, empty lots, or dark forests.\n\nIt is an acknowledgement that humans do not own the land and are merely passing through the territory of elemental beings like duwende (dwarves), nuno (goblins), or engkanto (elementals). To disturb their homes without this simple courtesy is to invite retribution, which can range from getting lost and minor illnesses to debilitating sickness and even death. The act is not one of fear, but of diplomacy with a world that exists parallel to our own.",
-                operativeNotes: [
-                    "This protocol is primarily effective against territorial, non-malevolent entities.",
-                    "Sincerity is key; a mumbled or sarcastic utterance may be ignored or seen as a greater insult.",
-                    "If you accidentally kick an anthill or break a branch, an immediate and sincere apology using the protocol is advised.",
-                    "Failure to observe this protocol is the leading cause of low-level elemental afflictions reported to the Grid."
-                ]
-            }
-        ];
+    {
+        id: 'balete-drive',
+        title: 'Ang Kababalaghan sa Balete Drive',
+        excerpt: 'Isang pagsisiyasat sa pinakakilalang kalye ng kababalaghan sa Pilipinas. Ang White Lady, mga naglalahong tsuper, at ang madilim na enerhiya ng mga puno ng Balete.',
+        imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/7975Balete_Drive_Quezon_City_Landmarks_01.jpg/2560px-7975Balete_Drive_Quezon_City_Landmarks_01.jpg',
+        fullContent: "Ang Balete Drive sa Quezon City ay hindi lang isang ordinaryong kalye; ito'y sentro ng paranormal na aktibidad, na laging iniuugnay sa multo ng isang White Lady. Ilang dekada na ang nakalipas, iba't ibang kuwento na ang narinig mula sa mga tsuper ng taxi at mga motorista tungkol sa isang babaeng bigla na lang pumapara sa kanila, para lang maglaho mula sa rearview mirror pagkatapos ng ilang sandali.\n\nNaniniwala ang mga field operative na ang mga sinaunang puno ng Balete sa gilid ng daan ay nagsisilbing daluyan ng enerhiya, na siyang dahilan kung bakit nananatili ang mga kaluluwa sa lugar. Ang pinakatanyag na teorya ay ang multo ay kaluluwa ng isang babaeng brutal na pinaslang sa kalyeng iyon, at ngayon, ang kanyang kaluluwa ay paulit-ulit na lang na naghahanap ng masasakyan na hindi naman niya matatapos.",
+        operativeNotes: [
+            "Pinakamatindi ang aktibidad sa pagitan ng hatinggabi at 3:00 ng madaling araw.",
+            "Bago magpakita ang aparisyon, biglang bumabagsak ang temperatura at nagkakaroon ng aberya sa mga electronic device.",
+            "Iwasang tumingin sa rearview mirror kung may nag-iisang pasahero na isinakay sa lugar.",
+            "Ang kababalaghan ay Class-3 Residual Haunting; hindi nananakit pero nagdudulot ng matinding takot at psychological distress."
+        ]
+    },
+    {
+        id: 'manila-film-center',
+        title: 'Trahedya sa Film Center',
+        excerpt: 'Ang madilim na kasaysayan ng isang gusaling pinaniniwalaang pinaglibingan ng mga trabahador sa semento. Pakinggan ang bulong ng kanilang mga kaluluwa.',
+        imageSrc: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbFeHKUmD9c8tjfuhSZIOuFeT9GPTRC5zaD4qjnl8ACFigl3Lyc8SBxEsewCorzAe8ArEGD2MO0Q1FWNT_Xa7qbH0huFhSbZK57nYs44gQThVNjBpolrJXpKcxaNHmYZIz-IWtwjfPXqQ/s1600/FILM+CENTER.jpg',
+        fullContent: "Noong ika-17 ng Nobyembre 1981, habang minamadali ang pagpapatayo ng Manila Film Center, isang scaffolding ang bumagsak at naghulog sa dose-dosenang manggagawa sa sariwang semento. Upang maabot ang deadline para sa isang international film festival, sinabi sa opisyal na ulat na lahat ng manggagawa ay nakuha.\n\nNgunit, ayon sa mga kuwento ng mga dating construction crew at first responder, ipinatigil ang paghahanap para makatipid sa oras, na nagresulta sa pagkakabaon ng hindi malamang bilang ng mga biktima sa loob mismo ng istraktura. Ngayon, ang gusali ay pugad ng mga kuwentong kababalaghan—mula sa mga sigaw ng paghingi ng tulong, mga multong humahaplos, at mga aparisyon ng mga lalaking naka-uniporme, na habambuhay na selyado sa kanilang sementong libingan.",
+        operativeNotes: [
+            "Mga sigaw at bulong (auditory phenomena) ang pinakamadalas na naiuulat na pangyayari.",
+            "May mga naiulat na poltergeist activity sa main lobby at sa loob ng sinehan.",
+            "Napakalakas ng psychic energy sa lugar; madalas nagdudulot ng pagkahilo at matinding takot sa mga taong sensitibo.",
+            "Bawal pumasok, pero may mga thermal scan na nagpapakita ng mga malamig na spot na hugis-tao sa labas ng gusali."
+        ]
+    },
+    {
+        id: 'biringan-city',
+        title: 'Biringan: Ang Nawawalang Lungsod',
+        excerpt: 'Isang kumpletong dossier sa mahiwagang lungsod na lumilitaw at naglalaho sa Samar. Isa ba itong portal o kaharian ng mga engkanto?',
+        imageSrc: 'https://salindila.wordpress.com/wp-content/uploads/2017/02/16976529_10202729337752083_1945290617_n.jpg',
+        fullContent: "Walang Biringan sa kahit anong mapa. Ito ay isang mahiwagang lungsod na sinasabing umiiral sa ibang dimensyon na paminsan-minsan ay sumasanib sa ating mundo sa isla ng Samar. Ayon sa mga nakakita na raw dito, isa itong malawak na siyudad na may mga kakaibang arkitektura, may sariling liwanag, at tinitirhan ng mga magaganda ngunit kakaibang nilalang.\n\nMangingisda ang madalas makakita sa kumikinang na liwanag nito mula sa dagat, ngunit naglalaho ito kapag nilapitan. May mga kuwento rin ng mga taong naimbitahan sa Biringan, na nakabalik sa ating mundo pagkatapos ng ilang araw o linggo nang walang alaala sa lumipas na panahon. Pinaniniwalaang ito ang kabisera ng mga Engkanto, mga makapangyarihang nilalang na kumukuha ng mga tao para maging asawa o alipin.",
+        operativeNotes: [
+            "Ang Biringan ay isang dimensional anomaly, hindi pisikal na lokasyon.",
+            "Ang pagpasok dito ay madalas hindi sinasadya at maaaring magdulot ng permanenteng pagkawala sa oras.",
+            "Kilala ang mga Engkanto ng Biringan bilang manlilinlang; huwag tumanggap ng pagkain o regalo mula sa kanila.",
+            "May mga satellite image na nagpapakita ng biglaang energy signature sa lugar na pinaniniwalaang lokasyon nito."
+        ]
+    },
+    {
+        id: 'pagpag',
+        title: 'Ang Pamahiin ng "Pagpag"',
+        excerpt: "Huwag na huwag dumiretso ng uwi galing sa burol. Unawain ang kahalagahan ng 'pagpag' para maiwasang sundan ng mga ligaw na kaluluwa.",
+        imageSrc: 'https://w0.peakpx.com/wallpaper/957/832/HD-wallpaper-look-behind-you-poe-shadow-man-eerie-spirit-ghost-doorway-scary-halloween-following.jpg',
+        fullContent: "Ang tradisyon ng 'pagpag' (ang pag-alog para matanggal ang dumi) ay isang mahalagang protocol para sa kaligtasan laban sa kababalaghan. Pinaniniwalaang maaaring sumunod ang masasamang espiritu o maging ang kaluluwa ng namatay pauwi mula sa isang burol o libing. Ang mga nilalang na ito, na naaakit sa emosyonal na enerhiya ng mga buhay, ay maaaring magdala ng kamalasan, sakit, o paranormal na aktibidad sa isang tahanan.\n\nSa pamamagitan ng paghinto muna sa isang neutral na lugar—tulad ng isang convenience store o coffee shop—pinaniniwalaang malilito ang espiritu o 'mapapagpag' ang koneksyon nito sa iyo, na pumipigil sa pagsunod niya hanggang sa iyong huling destinasyon. Ang pagbalewala sa protocol na ito ay parang pagbibigay ng bukas na imbitasyon sa kababalaghan na tumawid sa iyong pintuan.",
+        operativeNotes: [
+            "Pinakamahalaga ang protocol na ito kapag dumadalo sa burol ng biktima ng isang marahas o biglaang pagkamatay.",
+            "Ang neutral na lokasyon ay dapat isang lugar ng ordinaryong aktibidad, hindi ibang bahay.",
+            "Ito ay isang ritwal ng pagliligaw, hindi isang exorcism.",
+            "May naitalang koneksyon sa pagitan ng mga minor haunting at ang hindi pagsunod sa tradisyong ito."
+        ]
+    },
+    {
+        id: 'diplomat-hotel',
+        title: 'Case File: Diplomat Hotel',
+        excerpt: 'Ang mga guho ng hotel na ito sa Baguio ay sumasalamin sa isang madilim na nakaraan—isang seminaryo, isang kanlungan, isang lugar ng mga karahasan noong digmaan. Ang mga kaluluwa rito ay hindi pa nag-check out.',
+        imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Diplomat_Hotel%2C_Baguio_City.jpg',
+        fullContent: "Ang Diplomat Hotel, na nakatayo sa tuktok ng Dominican Hill sa Baguio, ay may kasaysayang nabahiran ng dugo. Nagsimula bilang isang seminaryo at pahingahan, naging kanlungan ito noong World War II, kung saan nasaksihan nito ang brutal na masaker sa mga nanunuluyan dito ng mga sundalong Hapon. Sinasabing pinugutan ng ulo ang mga madre at pari sa loob ng mga pader nito.\n\nMatapos itong gawing hotel, hindi mabilang na paranormal na engkwentro ang naranasan ng mga bisita at staff. Ngayon, bilang isang guho, ito ay palaruan para sa mga ghost hunter. May mga ulat ng mga sigaw mula sa ikalawang palapag, mga aparisyon ng mga paring pugot, at isang mabigat na pakiramdam ng takot malapit sa fountain. Itinuturing itong isa sa mga pinaka-aktibong haunted na lokasyon sa bansa.",
+        operativeNotes: [
+            "Kabilang sa mga pangunahing aktibidad ang mga full-bodied apparition at mga matatalinong tunog (intelligent auditory phenomena).",
+            "Patuloy na naitatala ang mataas na EMF fluctuation sa kapilya at sa mga silid sa ikalawang palapag.",
+            "Ang lugar ay isang pinaghalong residual at intelligent hauntings, kaya't mahirap hulaan ang mga mangyayari.",
+            "Babala: Ilang operatiba na ang nag-ulat na pisikal silang hinawakan o itinulak ng isang hindi nakikitang puwersa."
+        ]
+    },
+    {
+        id: 'sukob-curse',
+        title: 'Ang Sumpa ng Sukob',
+        excerpt: "Bakit bawal ikasal ang magkapatid sa iisang taon? Isang malalim na pagsusuri sa sumpa ng 'Sukob' at ang kamalasang iniiwan nito.",
+        imageSrc: 'https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        fullContent: "Ang 'Sukob' ay tumutukoy sa isang makapangyarihang pamahiin na nagbabawal sa magkapatid na magpakasal sa loob ng iisang taon. Ang pagsuway dito ay nag-aanyaya ng isang sumpa na hahatiin ang swerteng nakalaan para sa isang mag-asawa sa dalawa, na nagreresulta sa paghina nito at pag-akit ng kamalasan.\n\nSinasabing ang sumpa ay nagpapakita bilang pagbagsak ng kabuhayan, away sa mag-asawa, malubhang karamdaman, o maging ang pagkamatay ng isa sa mga bagong kasal o kanilang malapit na kapamilya. May isa pang anyo ng 'sukob' na tumutukoy sa pagpapakasal sa taon kung kailan namatay ang isang malapit na miyembro ng pamilya. Itinuturing itong kawalan ng respeto sa namatay, na maaaring magalit at magdala ng malas sa pagsasama.",
+        operativeNotes: [
+            "Ito ay isang cultural curse na ang kapangyarihan ay tila nagmumula sa kolektibong paniniwala.",
+            "Tila tina-target ng sumpa ang 'mas mahina' sa dalawang mag-asawa pagdating sa swerte o kalusugan.",
+            "Walang kilalang paraan o ritwal para baliin ang sumpa kapag ito'y nagsimula na.",
+            "Pinapayuhan ang mga operatiba na igalang ang paniniwalang ito upang mapanatili ang tiwala ng mga lokal na komunidad."
+        ]
+    }
+];
 
         const articleContainer = document.getElementById('article-list-container');
         const modal = document.getElementById('lore-modal');
