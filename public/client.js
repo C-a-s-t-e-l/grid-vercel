@@ -189,6 +189,8 @@ async function handleReactionClick(event, storyId) {
     const reactionType = button.dataset.reaction;
     const userId = getOrCreateUserId();
 
+    const nickname = localStorage.getItem('eerieGridNickname') || 'Anonymous';
+
     const isAlreadySelected = button.classList.contains('selected');
 
     if (isAlreadySelected) {
@@ -211,7 +213,8 @@ async function handleReactionClick(event, storyId) {
                 .upsert({
                     story_id: storyId,
                     user_id: userId,
-                    reaction_type: reactionType
+                    reaction_type: reactionType,
+                     nickname: nickname 
                 }, { onConflict: 'story_id, user_id' }); 
 
             if (error) throw error;
