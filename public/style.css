@@ -531,18 +531,21 @@ html {
     margin-bottom: 1.2em;
 }
 
+
 .comments-section {
     margin-top: 40px;
     padding-top: 25px;
     border-top: 2px dashed rgba(60, 48, 42, 0.2); 
+    background-color: var(--primary-bg);
 }
 
 .comments-header, .comment-form h4 {
     font-family: var(--font-narrative);
-    color: var(--ink-color);
+    color: var(--accent-color);
     font-size: 1.5rem;
     margin-bottom: 25px;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 12px;
     letter-spacing: 1px;
@@ -551,6 +554,12 @@ html {
 .comments-header i, .comment-form h4 i {
     color: var(--stamp-color);
     font-size: 1.3rem;
+}
+
+.comments-container p{
+  color: black;
+  font-family: 'Special Elite', cursive;
+  font-weight: bold;
 }
 
 .comments-container {
@@ -565,7 +574,7 @@ html {
 }
 
 .comment-card {
-    background-color: #fdfaf2;
+    background-color: #fdfaf2; 
     padding: 15px 20px;
     border-radius: 2px;
     margin-bottom: 12px;
@@ -580,7 +589,7 @@ html {
     margin-bottom: 12px;
     color: var(--ink-color);
     text-align: justify;
-    white-space: pre-wrap; 
+    white-space: pre-wrap;
 }
 
 .comment-meta {
@@ -636,7 +645,7 @@ html {
 }
 
 .comment-form button[type="submit"] {
-    font-family: var(--font-narrative); /* Typewriter font */
+    font-family: var(--font-narrative); 
     font-size: 1rem;
     letter-spacing: 1px;
     color: #f5f1e9;
