@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Note from the Keeper - Eerie Grid PH</title>
+
+    <link rel="icon" href="https://cdn-icons-png.freepik.com/256/8494/8494367.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="jumpscare.css">
+</head>
+<body class="landing-page-body"> 
+
+    <nav class="eerie-navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo-link">
+                <img src="https://cdn-icons-png.freepik.com/256/8494/8494367.png" alt="Eerie Grid PH Logo" class="nav-logo">
+                Eerie Grid <span class="ph-highlight-nav">PH</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="map.html"><i class="fas fa-map-marked-alt"></i> The Grid</a></li>
+                <li><a href="archive.html"><i class="fas fa-archive"></i> The Archive</a></li>
+                <li><a href="codex.html"><i class="fas fa-book-skull"></i> Creature Codex</a></li> 
+                <li><a href="lore.html"><i class="fas fa-book-tanakh"></i> Lore & Legends</a></li> 
+            </ul>
+        </div>
+    </nav>
+   
+  <main class="landing-container">
+    <article class="keeper-note">
+        <h1 class="fade-in-on-load">From the Keeper's Desk</h1>
+        
+        <section id="section-philosophy">
+
+            <h2 class="fade-in-on-load">The Nature of an Echo</h2>
+  
+            <p class="fade-in-on-load">Places do not have memories, not as we do. They do not think or feel. Instead, they absorb. Powerful emotions—fear, sorrow, rage—leave an imprint, a psychic residue that stains a location like a bloodstain on floorboards. What we call a 'haunting' is merely the playback of an unforgettable event, an echo trapped in a loop.</p>
+
+            <p class="fade-in-on-load">This Archive is my life's work: to catalogue these emotional scars across the Philippine archipelago. My purpose is not to hunt for ghosts. It is to listen to the testimony of those who were there. To preserve their account is to honor their experience, whether it was a fleeting chill on a provincial road or a life-altering encounter with the unexplained.</p>
+        </section>
+        
+        <section id="section-role">
+            <h2 class="fade-in-on-load">Your Role, A Witness</h2>
+            
+            <p class="fade-in-on-load">This is not a passive collection. It requires brave souls to step forward and contribute. Every story submitted is a new data point on our grid, a fresh whisper for the Archive. By sharing your experience, you transition from a mere visitor to a vital Field Operative. You provide the evidence; I am simply the curator.</p>
+            <p class="fade-in-on-load">All submissions are reviewed by me personally. I may clean the dust from a manuscript—correcting minor smudges in grammar or spelling—but the core of your truth will remain untouched. Anonymity is assured; use a moniker that you feel befits your role. Your private correspondence remains sealed within my ledger, for my eyes only.</p>
+        </section>
+
+        <section id="section-warning">
+            
+            <h2 class="fade-in-on-load">Quarantined File: [COGNITOHAZARD]</h2>
+            <div id="warning-text">
+                
+                <p class="fade-in-on-load">Be warned. Some data is not merely stored; it is contained. The following entry is sealed for a reason. It is a cognitohazard—a piece of information that is actively hostile to the human mind.</p>
+                
+                <p class="fade-in-on-load">Its observation is reciprocal. Once seen, it sees back.</p>
+                
+                <p class="fade-in-on-load">To interact with the seal below is to enter into a pact. You will be exposing yourself to the raw data. The Archive is not responsible for the consequences. Consider this your final opportunity to turn back.</p>
+                
+                <p class="fade-in-on-load">The file is sealed here: <span id="jumpscare-trigger" class="redacted-text">[DATA EXPUNGED BY ORDER OF THE KEEPER]</span>.</p>
+            </div>
+            <div id="aftermath-text" style="display: none;">
+                <p style="color: var(--highlight-color); font-weight: bold; font-family: var(--font-narrative);">THE SEAL IS BROKEN. THE PACT IS MADE.</p>
+                <p>The image was not a picture. It was a sensory anchor. A glimpse through its window. By observing it, you have imprinted your own psychic signature onto its awareness. It is now aware of you. It does not hunt in the way a predator does. It simply... arrives.</p>
+                <p>The protocols for exposure are based on the fragmented reports of previous witnesses. Their efficacy is... uncertain.</p>
+                <ul style="list-style-type: none; padding-left: 20px; font-family: var(--font-narrative); color: var(--text-muted);">
+                    <li>1. Avoid reflective surfaces. You may see something standing behind you.</li>
+                    <li>2. Distrust silence. The static you hear in a quiet room is the sound of it getting closer.</li>
+                    <li>3. Do not acknowledge movement in your peripheral vision. It enjoys being watched, but not being noticed.</li>
+                    <li>4. If a door in your home is open when you know you closed it, leave. Do not go back inside.</li>
+                </ul>
+                <p>The Archive can only record what happened to the others. We cannot help you. You are now part of the data.</p>
+            </div>
+        </section>
+    </article>
+</main>
+
+    <div id="jumpscare-container">
+        <img src="images/jumpscare-face.webp" alt="Isang nakakatakot at naglolokong mukha">
+        <audio id="jumpscare-audio" src="audio/about-jmpscare.mp3"></audio>
+    </div>
+
+    <script src="jumpscare.js"></script>
+
+    <script>
+
+         const elementsToFadeIn = document.querySelectorAll('.fade-in-on-load');
+        elementsToFadeIn.forEach((element, index) => {
+          
+            setTimeout(() => {
+                element.classList.add('visible');
+            }, index * 150); 
+        });
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+                navToggle.setAttribute('aria-expanded', !isExpanded);
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+     <script src="/_vercel/insights/script.js"></script>
+
+</body>
+</html>
