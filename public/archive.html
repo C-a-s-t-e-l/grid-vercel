@@ -50,83 +50,22 @@
         <div class="sort-wrapper">
           <label for="sort-stories"><i class="fas fa-sort-amount-down"></i> Sort by:</label>
           <select id="sort-stories">
-            <option value="newest" selected>Newest First</option>
-            <option value="oldest">Oldest First</option>
+            <option value="created_at-desc" selected>Newest First</option>
+            <option value="created_at-asc">Oldest First</option>
             <option value="title-az">Title (A-Z)</option>
           </select>
         </div>
       </section>
 
-      <div id="story-list-container" class="story-list"></div>
-      <div id="pagination-container" class="pagination"></div>
-    </div>
-
-    <!-- <div id="story-modal" class="modal modal-hidden">
-      <div class="modal-outer-frame">
-        <div class="modal-content">
-          <button id="modal-close-button-top" class="modal-close-top" aria-label="Close story details">
-            <i class="fas fa-times"></i>
-          </button>
-          <div class="modal-header-creepy">
-            <h2 id="modal-story-title">Story Title Here</h2>
-            <p id="modal-story-location"><em><i class="fas fa-map-pin"></i> Location: Location Name Here</em></p>
-            <p id="modal-story-author"><em><i class="fas fa-user-ghost"></i> By: Author Name Here</em></p>
-            <p id="modal-story-date"><em><i class="fas fa-clock"></i></i></p>
-          </div>
-          <div class="modal-body-scrollable">
-            <div class="modal-story-document">
-              <div id="modal-full-story" class="story-text-container"></div>
-              <div class="comments-section">
-                <h3 class="comments-header"><i class="fas fa-comments"></i> Community Echoes</h3>
-                <div id="comments-container" class="comments-container"></div>
-                <form id="comment-form" class="comment-form">
-                  <h4><i class="fas fa-pen-nib"></i> Leave Your Whisper</h4>
-                  <div class="form-field">
-                    <label for="comment-nickname">Your Nickname:</label>
-                    <input type="text" id="comment-nickname" name="nickname" required placeholder="Your investigator name..."/>
-                  </div>
-                  <div class="form-field">
-                    <label for="comment-text">Your Comment:</label>
-                    <textarea id="comment-text" name="comment_text" rows="3" required placeholder="Share your thoughts or similar experiences..."></textarea>
-                  </div>
-                  <input type="hidden" id="comment-story-id" name="story_id" />
-                  <button type="submit" class="eerie-button">Submit Comment</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="modal-document-footer">
-            <div class="modal-reaction-area">
-                <div id="reaction-display" class="reaction-display">
-                </div>
-                <div class="reaction-trigger-area">
-                    <div id="reaction-palette" class="reaction-palette">
-                        <button class="reaction-button" data-reaction="spooked" data-tooltip="Spooked">😱</button>
-                        <button class="reaction-button" data-reaction="intriguing" data-tooltip="Intriguing">🤔</button>
-                        <button class="reaction-button" data-reaction="tragic" data-tooltip="Tragic">😥</button>
-                        <button class="reaction-button" data-reaction="believable" data-tooltip="Believable">🧐</button>
-                        <button class="reaction-button" data-reaction="absurd" data-tooltip="Absurd">😂</button>
-                    </div>
-                    <button id="react-button" class="eerie-button react-button">
-                        <i class="far fa-smile"></i> React
-                    </button>
-                </div>
-            </div>
-            <div class="modal-action-buttons">
-                <button id="modal-view-on-grid" class="eerie-button secondary">
-                    <i class="fas fa-map-marked-alt"></i> View on Grid
-                </button>
-                <button id="modal-close-button-bottom" class="eerie-button">
-                    <i class="fas fa-book"></i> Close File
-                </button>
-            </div>
-          </div>
-        </div>
+      <div id="story-list-container" class="story-list">
       </div>
-    </div> -->
+      <div id="pagination-container" class="pagination">
+
+      </div>
+    </div>
    
-    <div id="chat-widget" class="chat-widget-hidden">
-          <div id="chat-header">
+   <div id="chat-widget" class="chat-widget-hidden">
+        <div id="chat-header">
             <div id="keeper-info">
                 <img src="/images/keeper_icon.png" alt="Archive Keeper Icon">
                 <span>Archive Keeper</span>
@@ -137,12 +76,12 @@
             <button id="chat-close-button" title="Close conversation">×</button>
               </div>
         </div>
-      <div id="chat-messages">
-        <!-- <div class="chat-message ai-message">
-          <p>The archives are open. What knowledge do you seek from the shadows?</p>
-        </div> -->
-      </div>
-      <div id="chat-input-container">
+        <div id="chat-messages">
+            <!-- <div class="chat-message ai-message">
+                <p>The archives are open. What knowledge do you seek from the shadows?</p>
+            </div> -->
+        </div>
+       <div id="chat-input-container">
     <textarea id="chat-input" placeholder="Ask about a story or place..." rows="1"></textarea>
     <button id="chat-send-button">
         <i class="fas fa-paper-plane"></i>

@@ -17,13 +17,13 @@ const creepyIcon = new L.Icon({
     popupAnchor: [1, -30]              
 });
 
-const storyModal = document.getElementById('story-modal');
-const modalTitle = document.getElementById('modal-story-title');
-const modalLocation = document.getElementById('modal-story-location');
-const modalFullStory = document.getElementById('modal-full-story');
-const modalCloseButton = document.getElementById('modal-close-button');
-const modalAuthor = document.getElementById('modal-story-author'); 
-const modalDate = document.getElementById('modal-story-date'); 
+// const storyModal = document.getElementById('story-modal');
+// const modalTitle = document.getElementById('modal-story-title');
+// const modalLocation = document.getElementById('modal-story-location');
+// const modalFullStory = document.getElementById('modal-full-story');
+// const modalCloseButton = document.getElementById('modal-close-button');
+// const modalAuthor = document.getElementById('modal-story-author'); 
+// const modalDate = document.getElementById('modal-story-date'); 
 
 
 const notificationModal = document.getElementById('notification-modal');
@@ -85,15 +85,15 @@ function openStoryModal(story) {
     storyModal.classList.add('modal-visible');
 }
 
-function closeStoryModal() {
-    if (!storyModal) return;
-    storyModal.classList.add('modal-hidden');
-    storyModal.classList.remove('modal-visible');
-}
+// function closeStoryModal() {
+//     if (!storyModal) return;
+//     storyModal.classList.add('modal-hidden');
+//     storyModal.classList.remove('modal-visible');
+// }
 
-if (modalCloseButton) {
-    modalCloseButton.addEventListener('click', closeStoryModal);
-}
+// if (modalCloseButton) {
+//     modalCloseButton.addEventListener('click', closeStoryModal);
+// }
 
 
 function showNotificationModal(message, type = 'error') { 
@@ -239,28 +239,28 @@ async function handleReactionClick(event, storyId) {
 }
 
 
-function closeStoryModal() {
-    if (!storyModal) return;
-    storyModal.classList.remove('modal-visible');
-}
+// function closeStoryModal() {
+//     if (!storyModal) return;
+//     storyModal.classList.remove('modal-visible');
+// }
 
-if (modalCloseButton) {
-    modalCloseButton.addEventListener('click', closeStoryModal);
-}
+// if (modalCloseButton) {
+//     modalCloseButton.addEventListener('click', closeStoryModal);
+// }
 
-if (storyModal) {
-    storyModal.addEventListener('click', function(event) {
-        if (event.target === storyModal) {   
-            closeStoryModal();
-        }
-    });
+// if (storyModal) {
+//     storyModal.addEventListener('click', function(event) {
+//         if (event.target === storyModal) {   
+//             closeStoryModal();
+//         }
+//     });
  
-    window.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && storyModal.classList.contains('modal-visible')) {
-            closeStoryModal();
-        }
-    });
-}
+//     window.addEventListener('keydown', function(event) {
+//         if (event.key === 'Escape' && storyModal.classList.contains('modal-visible')) {
+//             closeStoryModal();
+//         }
+//     });
+// }
 
 
 function initMap() {
@@ -274,7 +274,7 @@ function initMap() {
     const initialZoom = zoom ? parseInt(zoom) : 6;
     
 
-    map = L.map('map').setView(initialCenter, initialZoom);
+    map = L.map('map').setView(initialCenter, initialZoom); // Use the variables we just defined
 
     const southWest = L.latLng(PH_BOUNDS_COORDS.minLat, PH_BOUNDS_COORDS.minLng);
     const northEast = L.latLng(PH_BOUNDS_COORDS.maxLat, PH_BOUNDS_COORDS.maxLng);
@@ -363,7 +363,14 @@ function displayMarkers(storiesToDisplay) {
         const marker = L.marker([story.latitude, story.longitude], { icon: creepyIcon }).addTo(map);
         storyMarkers[story.id] = marker; 
         marker.on('click', () => {
-            openStoryModal(story);
+            const center = map.getCenter();
+            const lat = center.lat.toFixed(4);
+            const lng = center.lng.toFixed(4);
+            const zoom = map.getZoom();
+
+            const storyPageUrl = `story.html?id=${story.id}&from=map&lat=${lat}&lng=${lng}&zoom=${zoom}`;
+
+            window.location.href = storyPageUrl;
         });
     }
 });
@@ -539,10 +546,11 @@ function checkUrlForStory() {
 
 async function fetchAndDisplayStories() {
     try {
-        const { data, error } = await supabaseClient
+         const { data, error } = await supabaseClient
             .from('stories')
-            .select('*')
+            .select('id, latitude, longitude') 
             .eq('is_approved', true); 
+        
 
         if (error) {
             throw error;

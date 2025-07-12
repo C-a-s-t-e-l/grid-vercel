@@ -1,14 +1,12 @@
-// In public/story.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const storyId = urlParams.get('id');
-    const fromMap = urlParams.get('from') === 'map';
-
+    const from = urlParams.get('from');
+    
     const backToArchiveBtn = document.getElementById('back-to-archive-btn');
     const backToGridBtn = document.getElementById('back-to-grid-btn');
 
-    if (fromMap) {
+    if (from === 'map') {
         const lat = urlParams.get('lat');
         const lng = urlParams.get('lng');
         const zoom = urlParams.get('zoom');
@@ -18,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
             backToGridBtn.style.display = 'inline-block'; 
             backToArchiveBtn.style.display = 'none'; 
         }
+    } else if (from === 'archive') {
+        const page = urlParams.get('page') || 1;
+        backToArchiveBtn.href = `archive.html?page=${page}`;
     }
 
     const container = document.querySelector('.story-page-container');
