@@ -280,6 +280,11 @@
   left: 20px;
   display: flex;
   justify-content: flex-end;
+  text-decoration: none;
+}
+
+.story-card-actions a{
+   text-decoration: none;
 }
 
 .eerie-button {
@@ -702,6 +707,19 @@
 .reaction-button.selected {
     background-color: #cce7ff;
 }
+
+.story-display-container {
+    max-width: 850px; 
+    margin: 40px auto; 
+    padding: 20px;
+}
+
+.story-display-container .modal-action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media (max-width: 768px) {
   .page-header h1 {
     font-size: 2.8rem;
@@ -783,3 +801,4 @@ em{
     padding: 12px;
   }
 }
+

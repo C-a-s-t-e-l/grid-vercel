@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading Story... - Eerie Grid PH</title>
+    <meta name="description" content="An eerie tale from the archives of the Eerie Grid PH.">
+
+    <link rel="icon" href="https://cdn-icons-png.freepik.com/256/8494/8494367.png" type="image/png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="archive.css" />
+    <link rel="stylesheet" href="story-page.css" /> 
+    <link rel="stylesheet" href="chatbot.css" />
+</head>
+<body class="archive-page-body">
+
+    <nav class="eerie-navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo-link">
+                <img src="https://cdn-icons-png.freepik.com/256/8494/8494367.png" alt="Eerie Grid PH Logo" class="nav-logo"/>
+                Eerie Grid <span class="ph-highlight-nav">PH</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="map.html"><i class="fas fa-map-marked-alt"></i> The Grid</a></li>
+                <li><a href="archive.html" class="active"><i class="fas fa-archive"></i> The Archive</a></li>
+                <li><a href="codex.html"><i class="fas fa-book-skull"></i> Creature Codex</a></li>
+                <li><a href="lore.html"><i class="fas fa-book-tanakh"></i> Lore & Legends</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="story-page-container">
+        <header id="story-header" class="story-header">
+            <div class="story-header-content">
+                <h1 id="story-page-title">Loading...</h1>
+                <div class="story-meta-info">
+                    <p id="story-page-location"><i class="fas fa-map-pin"></i> Locating...</p>
+                    <p id="story-page-author"><i class="fas fa-user-ghost"></i> By: ...</p>
+                    <p id="story-page-date"><i class="fas fa-clock"></i> Submitted: ...</p>
+                </div>
+            </div>
+        </header>
+
+        <article class="story-body">
+            <div class="story-body-content">
+                <div id="story-full-text" class="story-text-container">
+                    <p>The spirits are whispering the details of this tale...</p>
+                </div>
+            </div>
+        </article>
+
+        <section class="story-interactive-section">
+            <div class="modal-document-footer">
+                <div class="modal-reaction-area">
+                    <div id="reaction-display" class="reaction-display"></div>
+                    <div class="reaction-trigger-area">
+                        <div id="reaction-palette" class="reaction-palette">
+                            <button class="reaction-button" data-reaction="spooked" data-tooltip="Spooked">😱</button>
+                            <button class="reaction-button" data-reaction="intriguing" data-tooltip="Intriguing">🤔</button>
+                            <button class="reaction-button" data-reaction="tragic" data-tooltip="Tragic">😥</button>
+                            <button class="reaction-button" data-reaction="believable" data-tooltip="Believable">🧐</button>
+                            <button class="reaction-button" data-reaction="absurd" data-tooltip="Absurd">😂</button>
+                        </div>
+                        <button id="react-button" class="eerie-button react-button">
+                            <i class="far fa-smile"></i> React
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comments-section">
+                <h3 class="comments-header"><i class="fas fa-comments"></i> Community Echoes</h3>
+                <div id="comments-container" class="comments-container"></div>
+                <form id="comment-form" class="comment-form">
+                    <h4><i class="fas fa-pen-nib"></i> Leave Your Whisper</h4>
+                    <div class="form-field">
+                        <label for="comment-nickname">Your Nickname:</label>
+                        <input type="text" id="comment-nickname" name="nickname" required placeholder="Your investigator name..."/>
+                    </div>
+                    <div class="form-field">
+                        <label for="comment-text">Your Comment:</label>
+                        <textarea id="comment-text" name="comment_text" rows="3" required placeholder="Share your thoughts or similar experiences..."></textarea>
+                    </div>
+                    <input type="hidden" id="comment-story-id" name="story_id" />
+                    <button type="submit" class="eerie-button">Submit Comment</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <div class="story-page-buttons">
+    <a href="archive.html" id="back-to-archive-btn" class="eerie-button">
+        <i class="fas fa-archive"></i> Back to Archive
+    </a>
+    
+    
+    <a href="#" id="back-to-grid-btn" class="eerie-button" style="display: none;">
+        <i class="fas fa-map-marked-alt"></i> Back to Grid
+    </a>
+</div>
+      <section class="story-sharing-bar">
+            <button id="share-facebook" class="share-btn facebook" title="Share on Facebook">
+                <i class="fab fa-facebook-f"></i> Facebook
+            </button>
+            <button id="share-twitter" class="share-btn twitter" title="Share on Twitter">
+                <i class="fab fa-twitter"></i> Twitter
+            </button>
+            <button id="copy-link-btn" class="share-btn copy-link" title="Copy story link">
+                <i class="fas fa-link"></i> Copy Link
+            </button>
+        </section>
+
+          <div id="chat-widget" class="chat-widget-hidden">
+        <div id="chat-header">
+            <div id="keeper-info">
+                <img src="/images/keeper_icon.png" alt="Archive Keeper Icon">
+                <span>Archive Keeper</span>
+            </div>
+              <div class="chat-header-buttons">
+                <button id="clear-chat-button" class="chat-header-button" title="Start New Conversation"> <img src="https://icon-library.com/images/reset-icon-png/reset-icon-png-23.jpg" alt="">
+             </button>
+            <button id="chat-close-button" title="Close conversation">×</button>
+              </div>
+        </div>
+        <div id="chat-messages">
+            <!-- <div class="chat-message ai-message">
+                <p>The archives are open. What knowledge do you seek from the shadows?</p>
+            </div> -->
+        </div>
+       <div id="chat-input-container">
+    <textarea id="chat-input" placeholder="Ask about a story or place..." rows="1"></textarea>
+    <button id="chat-send-button">
+        <i class="fas fa-paper-plane"></i>
+    </button>
+</div>
+    </div>
+
+     <button id="chat-toggle-button">
+        <img src="/images/keeper_icon.png" alt="">
+    </button>
+
+    <footer class="archive-page-footer">
+        <p>© <span id="currentYear"></span> Eerie Grid PH. The archive is eternal.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+     <script src="chatbot.js"></script>
+    <script src="story.js"></script>
+   
+    <script>
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+      const navToggle = document.querySelector(".nav-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+      if (navToggle && navMenu) {
+        navToggle.addEventListener("click", () => {
+          const isExpanded = navToggle.getAttribute("aria-expanded") === "true" || false;
+          navToggle.setAttribute("aria-expanded", !isExpanded);
+          navMenu.classList.toggle("active");
+        });
+      }
+    </script>
+</body>
+</html>

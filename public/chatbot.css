@@ -156,8 +156,7 @@
     box-sizing: border-box;
     transition: height 0.2s ease;
 
-     /* --- Key properties for resizing --- */
-    resize: none; /* Disables the manual resize handle */
+    resize: none; 
     overflow-y: auto; 
     box-sizing: border-box; 
     

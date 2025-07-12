@@ -33,65 +33,66 @@ const notificationIcon = document.getElementById('notification-modal-icon');
 const notificationCloseBtn = document.getElementById('notification-modal-close');
 
 
-function openStoryModal(story) {
 
-       if (!storyModal || !modalTitle || !modalLocation || !modalFullStory || !modalDate) {
+function openStoryModal(story) {
+    if (!storyModal || !modalTitle || !modalLocation || !modalFullStory || !modalDate) {
         console.error('One or more modal elements not found!');
         return;
     }
-
     modalTitle.textContent = story.title || 'Untitled Story';
-    
     if (story.created_at) {
         const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
         const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
-
         const datePart = new Date(story.created_at).toLocaleDateString('en-US', dateOptions);
         const timePart = new Date(story.created_at).toLocaleTimeString('en-US', timeOptions).toLowerCase();
-        
         const formattedDateTime = `${datePart} - ${timePart}`;
-        modalDate.innerHTML = `<em></i> ${formattedDateTime}</em>`;
+        modalDate.innerHTML = `<em><i class="fas fa-clock"></i> ${formattedDateTime}</em>`;
     } else {
         modalDate.innerHTML = '';
     }
-
     modalLocation.innerHTML = `<em><i class="fas fa-map-pin"></i> ${story.location_name || 'Unknown Location'}</em>`;
     modalAuthor.innerHTML = `<em>By: ${story.nickname || 'Unknown'}</em>`;
     const cleanStoryText = (story.full_story || '').replace(/\\n/g, '\n');
     const paragraphs = cleanStoryText.split('\n').filter(p => p.trim() !== '');
+    modalFullStory.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
 
-    modalFullStory.innerHTML = ''; 
-
-    paragraphs.forEach(paragraphText => {
-        const p = document.createElement('p');
-        p.textContent = paragraphText;
-        modalFullStory.appendChild(p);
-    });
-
-    const commentStoryIdInput = document.getElementById('comment-story-id');
-    if(commentStoryIdInput) {
-        commentStoryIdInput.value = story.id;
-    }
-
-    const commentNicknameInput = document.getElementById('comment-nickname');
-    if(commentNicknameInput){
-        commentNicknameInput.value = localStorage.getItem('eerieGridNickname') || '';
-    }
-
-    fetchAndDisplayComments(story.id);
     setupReactionSystem(story.id);
-
-    // This part for reactions seems complex, make sure it's working as intended.
-    // Re-cloning buttons can be tricky. A better approach might be to use a single event listener on a parent element.
     const reactionButtons = document.querySelectorAll('.reaction-button');
     reactionButtons.forEach(button => {
         const newButton = button.cloneNode(true);
         newButton.addEventListener('click', (event) => handleReactionClick(event, story.id));
         button.parentNode.replaceChild(newButton, button);
     });
+    
+    const modalActionsContainer = storyModal.querySelector('#modal-action-buttons');
+    if (modalActionsContainer) {
+        modalActionsContainer.innerHTML = ''; 
+        const center = map.getCenter();
+        const lat = center.lat.toFixed(4);
+        const lng = center.lng.toFixed(4);
+        const zoom = map.getZoom();
+
+        const fullPageLink = document.createElement('a');
+        // Append map state to the URL
+        fullPageLink.href = `story.html?id=${story.id}&from=map&lat=${lat}&lng=${lng}&zoom=${zoom}`;
+        fullPageLink.className = 'eerie-button accent';
+        fullPageLink.innerHTML = `<i class="fas fa-book-open"></i> View in Full Page`;
+        
+        modalActionsContainer.appendChild(fullPageLink);
+    }
 
     storyModal.classList.remove('modal-hidden');
     storyModal.classList.add('modal-visible');
+}
+
+function closeStoryModal() {
+    if (!storyModal) return;
+    storyModal.classList.add('modal-hidden');
+    storyModal.classList.remove('modal-visible');
+}
+
+if (modalCloseButton) {
+    modalCloseButton.addEventListener('click', closeStoryModal);
 }
 
 
@@ -261,10 +262,19 @@ if (storyModal) {
     });
 }
 
+
 function initMap() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const lat = urlParams.get('lat');
+    const lng = urlParams.get('lng');
+    const zoom = urlParams.get('zoom');
+
     const philippinesCenter = [12.8797, 121.7740];
-    const initialZoom = 6;
-    map = L.map('map').setView(philippinesCenter, initialZoom);
+    const initialCenter = (lat && lng) ? [parseFloat(lat), parseFloat(lng)] : philippinesCenter;
+    const initialZoom = zoom ? parseInt(zoom) : 6;
+    
+
+    map = L.map('map').setView(initialCenter, initialZoom);
 
     const southWest = L.latLng(PH_BOUNDS_COORDS.minLat, PH_BOUNDS_COORDS.minLng);
     const northEast = L.latLng(PH_BOUNDS_COORDS.maxLat, PH_BOUNDS_COORDS.maxLng);

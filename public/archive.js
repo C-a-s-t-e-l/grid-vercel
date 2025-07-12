@@ -58,46 +58,42 @@ async function initializeStories() {
     }
 }
     
-    function renderStories(storiesToRender, page = 1) {
-        if (!storyListContainer) return;
-        storyListContainer.innerHTML = '';
+function renderStories(storiesToRender, page = 1) {
+    if (!storyListContainer) return;
+    storyListContainer.innerHTML = '';
 
-        if (storiesToRender.length === 0) {
-            storyListContainer.innerHTML = '<p class="no-results">No stories found. The spirits are quiet...</p>';
-            return;
-        }
-
-        const startIndex = (page - 1) * storiesPerPage;
-        const endIndex = startIndex + storiesPerPage;
-        const paginatedItems = storiesToRender.slice(startIndex, endIndex);
-
-        paginatedItems.forEach(story => {
-            const formattedDate = formatDate(story.created_at); 
-const caseTag = `Archive #${String(story.id).padStart(4, '0')} - ${formattedDate}`;
-
-const storyCard = `
-    <div class="story-card" data-story-id="${story.id}">
-        <p class="story-card-casetag">${caseTag}</p>
-        <div class="story-card-content">
-       
-            <p class="story-card-location"><i class="fas fa-map-pin"></i>${story.location_name}</p>
-            <h3 class="story-card-title">${story.title}</h3>
-          
-            <p class="story-card-author">By: ${story.nickname || 'Unknown'}</p>
-            
-            <p class="story-card-snippet">${story.snippet}</p>
-           
-        </div>
-       <div class="story-card-actions">
-                        <button class="eerie-button primary btn-read" data-story-id="${story.id}">
-                            <i class="fas fa-book-open"></i> Read Full Story
-                        </button>
-                    </div>
-    </div>
-`;
-            storyListContainer.innerHTML += storyCard;
-        });
+    if (storiesToRender.length === 0) {
+        storyListContainer.innerHTML = '<p class="no-results">No stories found. The spirits are quiet...</p>';
+        return;
     }
+
+    const startIndex = (page - 1) * storiesPerPage;
+    const endIndex = startIndex + storiesPerPage;
+    const paginatedItems = storiesToRender.slice(startIndex, endIndex);
+
+    paginatedItems.forEach(story => {
+        const formattedDate = formatDate(story.created_at);
+        const caseTag = `Archive #${String(story.id).padStart(4, '0')} - ${formattedDate}`;
+
+        const storyCard = `
+            <div class="story-card" data-story-id="${story.id}">
+                <p class="story-card-casetag">${caseTag}</p>
+                <div class="story-card-content">
+                    <p class="story-card-location"><i class="fas fa-map-pin"></i>${story.location_name}</p>
+                    <h3 class="story-card-title">${story.title}</h3>
+                    <p class="story-card-author">By: ${story.nickname || 'Unknown'}</p>
+                    <p class="story-card-snippet">${story.snippet}</p>
+                </div>
+                <div class="story-card-actions">
+                    <a href="story.html?id=${story.id}" class="eerie-button primary btn-read">
+                        <i class="fas fa-book-open"></i> Read Full Story
+                    </a>
+                </div>
+            </div>
+        `;
+        storyListContainer.innerHTML += storyCard;
+    });
+}
 
 async function fetchAndDisplayComments(storyId) {
     const commentsContainer = document.getElementById('comments-container');

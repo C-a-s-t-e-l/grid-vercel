@@ -628,7 +628,7 @@ html {
 }
 .comment-form button[type="submit"] {
   display: block;
-  margin: 10px 0 0 auto; /* Aligns button to the right */
+  margin: 10px 0 0 auto; 
 }
 
 .modal-document-footer {
@@ -729,7 +729,7 @@ html {
   padding-top: 15px;
   border-top: 1px solid var(--border-color);
   display: flex;
-  justify-content: center; /* Center the content */
+  justify-content: center; 
   align-items: center;
   gap: 15px;
 }
@@ -873,6 +873,24 @@ html {
     min-width: 150px;
 }
 
+#story-modal .modal-action-buttons {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+#story-modal .modal-action-buttons .eerie-button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+}
+
+.modal-action-buttons a {
+  text-decoration: none;
+}
+
 @media (max-width: 992px) {
     #map-column, #form-column {
         flex: 1 1 100%;
@@ -931,7 +949,7 @@ html {
 
 @media (max-width: 520px) {
     .modal-document-footer { padding: 15px; }
-    .modal-reaction-area { flex-direction: column; align-items: stretch; gap: 15px; }
+    .modal-reaction-area { flex-direction: column; align-items: stretch; gap: 15px; margin: 10px; }
     .reaction-trigger-area { align-self: flex-end; }
     .reaction-palette { left: auto; right: 0; transform: none; }
     .reaction-trigger-area:hover .reaction-palette { transform: translateY(0); }
