@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "functions": {
+    "api/og-handler.js": {
+      "memory": 128
+    },
+    "api/server.js": {
+      "memory": 128
+    }
+  },
   "rewrites": [
     {
       "source": "/story.html",
@@ -7,7 +15,7 @@
         {
           "type": "header",
           "key": "User-Agent",
-          "value": ".*(Twitterbot|facebookexternalhit|LinkedInBot|Pinterest|WhatsApp).*"
+          "value": ".*(Twitterbot|facebookexternalhit|LinkedInBot|Pinterest|WhatsApp|Discordbot|TelegramBot).*"
         }
       ],
       "destination": "/api/og-handler"
