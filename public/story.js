@@ -70,7 +70,7 @@ function populatePage(storyData) {
     const facebookBtn = document.getElementById('share-facebook');
     const twitterBtn = document.getElementById('share-twitter');
     const copyLinkBtn = document.getElementById('copy-link-btn');
-    const storyUrl = window.location.href;
+    const storyUrl = `https://eerie-grid.vercel.app/s/${storyData.id}`;
     const storyTitle = storyData.title;
 
     if (facebookBtn) {
