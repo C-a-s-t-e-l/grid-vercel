@@ -10,15 +10,8 @@
   },
   "rewrites": [
     {
-      "source": "/story.html",
-      "has": [
-        {
-          "type": "header",
-          "key": "User-Agent",
-          "value": ".*(Twitterbot|facebookexternalhit|LinkedInBot|Pinterest|WhatsApp|Discordbot|TelegramBot).*"
-        }
-      ],
-      "destination": "/api/og-handler"
+      "source": "/s/:id",
+      "destination": "/api/og-handler?id=:id"
     },
     {
       "source": "/api/(.*)",
