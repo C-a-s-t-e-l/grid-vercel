@@ -1,62 +1,54 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
-
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+const BOT_UA_REGEX = /Twitterbot|facebookexternalhit|LinkedInBot|Pinterest|WhatsApp|Discordbot|TelegramBot/i;
+
 module.exports = async (req, res) => {
+    const userAgent = req.headers['user-agent'];
     const { id } = req.query;
 
+    if (!BOT_UA_REGEX.test(userAgent)) {
+        res.setHeader('Location', `/story.html?id=${id || ''}`);
+        return res.status(302).end();
+    }
+    
     if (!id) {
-        return res.status(400).send('Story ID is required');
+        return res.status(400).send('Story ID is required for bot preview.');
     }
 
     try {
         const { data: story, error } = await supabase
             .from('stories')
-            .select('title, snippet') 
+            .select('title, snippet')
             .eq('id', id)
             .single();
 
         if (error || !story) {
-            res.setHeader('Location', '/index.html');
-            return res.status(302).end();
+            return res.status(404).send('Story not found.');
         }
-
+        
+        const canonicalUrl = `https://eerie-grid.vercel.app/s/${id}`;
         
         const htmlResponse = `
             <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>${story.title} - Eerie Grid PH</title>
-                
-                <!-- Open Graph / Facebook -->
-                <meta property="og:type" content="article">
-                <meta property="og:url" content="https://eerie-grid.vercel.app/story.html?id=${id}">
+                <title>${story.title}</title>
                 <meta property="og:title" content="${story.title}">
                 <meta property="og:description" content="${story.snippet}">
+                <meta property="og:url" content="${canonicalUrl}">
                 <meta property="og:image" content="https://www.maptive.com/wp-content/uploads/2024/07/The-Pentagram-Kazakhstan.png">
-                
-                <!-- Twitter -->
-                <meta property="twitter:card" content="summary_large_image">
-                <meta property="twitter:url" content="https://eerie-grid.vercel.app/story.html?id=${id}">
-                <meta property="twitter:title" content="${story.title}">
-                <meta property="twitter:description" content="${story.snippet}">
-                <meta property="twitter:image" content="https://www.maptive.com/wp-content/uploads/2024/07/The-Pentagram-Kazakhstan.png">
-
-                <!-- A script to redirect real users who might land here -->
-                <script>
-                    window.location.href = "/story.html?id=${id}";
-                </script>
+                <meta property="og:type" content="article">
+                <meta name="twitter:card" content="summary_large_image">
             </head>
             <body>
                 <h1>${story.title}</h1>
                 <p>${story.snippet}</p>
-                <p>Loading the full story...</p>
             </body>
             </html>
         `;
@@ -66,7 +58,6 @@ module.exports = async (req, res) => {
 
     } catch (e) {
         console.error("OG Handler Error:", e);
-        res.setHeader('Location', '/index.html');
-        return res.status(302).end();
+        return res.status(500).send('Server error generating preview.');
     }
 };
