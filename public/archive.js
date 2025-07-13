@@ -18,48 +18,48 @@ document.addEventListener('DOMContentLoaded', () => {
         return formattedDate.replace(' at', ' -').replace(/(AM|PM)/g, (match) => match.toLowerCase());
     }
 
-    async function fetchAndRenderStories(page = 1) {
-        if (!storyListContainer) return;
-        storyListContainer.innerHTML = '<p class="no-results">The spirits are gathering the tales...</p>';
-        currentPage = page;
+  async function fetchAndRenderStories(page = 1) {
+    if (!storyListContainer) return;
+    storyListContainer.innerHTML = '<p class="no-results">The spirits are gathering the tales...</p>';
+    currentPage = page;
 
-        // NEW: Update the URL without reloading the page to preserve state
-        const newUrl = `${window.location.pathname}?page=${currentPage}`;
-        window.history.pushState({ path: newUrl }, '', newUrl);
+    const newUrl = `${window.location.pathname}?page=${currentPage}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
 
-        try {
-            const searchTerm = searchBar.value;
-            const sortOption = sortSelect.value.split('-');
-            const sortColumn = sortOption[0] === 'title' ? 'title' : 'created_at';
-            const sortAscending = sortOption[0] === 'oldest' || sortOption[1] === 'az';
+    try {
+        const searchTerm = searchBar.value;
+        const sortValue = sortSelect.value; 
+        const sortParts = sortValue.split('-'); 
+        const sortColumn = sortParts[0]; 
+        const sortAscending = sortParts[1] === 'asc' || sortParts[1] === 'az'; 
 
-            let query = supabaseClient
-                .from('stories')
-                .select('id, title, location_name, nickname, snippet, created_at', { count: 'exact' })
-                .eq('is_approved', true);
+        let query = supabaseClient
+            .from('stories')
+            .select('id, title, location_name, nickname, snippet, created_at', { count: 'exact' })
+            .eq('is_approved', true);
 
-            if (searchTerm) {
-                query = query.or(`title.ilike.%${searchTerm}%,nickname.ilike.%${searchTerm}%,location_name.ilike.%${searchTerm}%,snippet.ilike.%${searchTerm}%`);
-            }
-
-            const startIndex = (page - 1) * storiesPerPage;
-            query = query
-                .order(sortColumn, { ascending: sortAscending })
-                .range(startIndex, startIndex + storiesPerPage - 1);
-
-            const { data, error, count } = await query;
-
-            if (error) throw error;
-            
-            totalStories = count;
-            renderStories(data);
-            setupPagination();
-
-        } catch (error) {
-            console.error('Failed to fetch stories:', error.message);
-            storyListContainer.innerHTML = '<p class="no-results">Failed to load the archive. The spirits are not responding...</p>';
+        if (searchTerm) {
+            query = query.or(`title.ilike.%${searchTerm}%,nickname.ilike.%${searchTerm}%,location_name.ilike.%${searchTerm}%,snippet.ilike.%${searchTerm}%`);
         }
+
+        const startIndex = (page - 1) * storiesPerPage;
+        query = query
+            .order(sortColumn, { ascending: sortAscending }) 
+            .range(startIndex, startIndex + storiesPerPage - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) throw error;
+        
+        totalStories = count;
+        renderStories(data);
+        setupPagination();
+
+    } catch (error) {
+        console.error('Failed to fetch stories:', error.message);
+        storyListContainer.innerHTML = '<p class="no-results">Failed to load the archive. The spirits are not responding...</p>';
     }
+}
 
     function renderStories(storiesToRender) {
         storyListContainer.innerHTML = '';
