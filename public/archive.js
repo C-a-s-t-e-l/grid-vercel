@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 }
 
+
+
     function renderStories(storiesToRender) {
         storyListContainer.innerHTML = '';
         if (!storiesToRender || storiesToRender.length === 0) {
@@ -92,6 +94,31 @@ document.addEventListener('DOMContentLoaded', () => {
             storyListContainer.innerHTML += storyCard;
         });
     }
+
+    if (storyListContainer) {
+    storyListContainer.addEventListener('click', function(event) {
+        // Find the link that was clicked
+        const storyLink = event.target.closest('a.btn-read');
+
+        if (!storyLink) {
+            return; // Exit if the click was not on a story link
+        }
+        
+        event.preventDefault(); // Stop the link from navigating immediately
+
+        // Create the return path object
+        const returnPath = {
+            from: 'archive',
+            page: currentPage // 'currentPage' is a variable you already have in archive.js
+        };
+
+        // Save it to sessionStorage as a string
+        sessionStorage.setItem('returnPath', JSON.stringify(returnPath));
+
+        // Now, navigate to the story page
+        window.location.href = storyLink.href;
+    });
+}
 
     function setupPagination() {
         if (!paginationContainer) return;

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const storyId = urlParams.get('id');
-    const from = urlParams.get('from');
+    // const from = urlParams.get('from');
     
     const backToArchiveBtn = document.getElementById('back-to-archive-btn');
     const backToGridBtn = document.getElementById('back-to-grid-btn');
@@ -79,19 +79,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (from === 'map') {
-        const lat = urlParams.get('lat');
-        const lng = urlParams.get('lng');
-        const zoom = urlParams.get('zoom');
+     try {
+        const returnPathString = sessionStorage.getItem('returnPath');
+        if (returnPathString) {
+            const returnPath = JSON.parse(returnPathString);
 
-        if (lat && lng && zoom) {
-            backToGridBtn.href = `map.html?lat=${lat}&lng=${lng}&zoom=${zoom}`;
-            backToGridBtn.style.display = 'inline-block'; 
-            backToArchiveBtn.style.display = 'none'; 
+            if (returnPath.from === 'map' && returnPath.url) {
+                // User came from the map
+                backToGridBtn.href = returnPath.url;
+                backToGridBtn.style.display = 'inline-block';
+                backToArchiveBtn.style.display = 'none';
+            } else if (returnPath.from === 'archive') {
+                // User came from the archive
+                backToArchiveBtn.href = `archive.html?page=${returnPath.page || 1}`;
+                backToGridBtn.style.display = 'none';
+                backToArchiveBtn.style.display = 'inline-block';
+            }
         }
-    } else if (from === 'archive') {
-        const page = urlParams.get('page') || 1;
-        backToArchiveBtn.href = `archive.html?page=${page}`;
+        // If there's no returnPath, the default "Back to Archive" button will show,
+        // which is a safe fallback.
+    } catch (e) {
+        console.error("Could not parse returnPath from sessionStorage", e);
+        // Let the default HTML state (Back to Archive) remain.
+    }  backToArchiveBtn.href = `archive.html?page=${page}`;
     }
 
     const container = document.querySelector('.story-page-container');

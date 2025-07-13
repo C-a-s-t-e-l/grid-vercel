@@ -363,10 +363,23 @@ function displayMarkers(storiesToDisplay) {
         const marker = L.marker([story.latitude, story.longitude], { icon: creepyIcon }).addTo(map);
         storyMarkers[story.id] = marker;
         marker.on('click', () => {
-            
-            const storyPageUrl = `/s/${story.id}`; 
-            window.location.href = storyPageUrl;
-        });
+    // --- START: NEW CODE TO ADD ---
+    const center = map.getCenter();
+    const lat = center.lat.toFixed(4);
+    const lng = center.lng.toFixed(4);
+    const zoom = map.getZoom();
+
+    const returnPath = {
+        from: 'map',
+        url: `map.html?lat=${lat}&lng=${lng}&zoom=${zoom}`
+    };
+
+    sessionStorage.setItem('returnPath', JSON.stringify(returnPath));
+
+
+    const storyPageUrl = `/s/${story.id}`; 
+    window.location.href = storyPageUrl;
+});
     }
 });
 }
