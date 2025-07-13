@@ -6,6 +6,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToArchiveBtn = document.getElementById('back-to-archive-btn');
     const backToGridBtn = document.getElementById('back-to-grid-btn');
 
+     const narrateBtn = document.getElementById('narrate-story-btn');
+    let audioPlayer = null; // We will store our <audio> element here
+    let isPlaying = false;
+    let storyIdForNarration = null;
+
+    //  const urlParams = new URLSearchParams(window.location.search);
+    storyIdForNarration = urlParams.get('id');
+
+    if (narrateBtn && storyIdForNarration) {
+        narrateBtn.addEventListener('click', toggleNarration);
+    }
+
+    function toggleNarration() {
+        if (isPlaying) {
+            // If it's playing, pause it
+            audioPlayer.pause();
+        } else {
+            // If it's paused or not yet created, play it
+            if (!audioPlayer) {
+                // Create the audio player for the first time
+                audioPlayer = new Audio(`/api/narrate/${storyIdForNarration}`);
+                
+                // Add event listeners to manage state
+                audioPlayer.onplay = () => {
+                    isPlaying = true;
+                    updateButtonState('playing');
+                };
+                audioPlayer.onpause = () => {
+                    isPlaying = false;
+                    updateButtonState('paused');
+                };
+                audioPlayer.onended = () => {
+                    isPlaying = false;
+                    // Reset so it can be played again from the start
+                    audioPlayer.currentTime = 0;
+                    updateButtonState('paused');
+                };
+                audioPlayer.onerror = () => {
+                    console.error("Error playing audio.");
+                    alert("The spirits are interfering with the broadcast. Could not play narration.");
+                    updateButtonState('error');
+                };
+                // Show a loading state while the audio buffers
+                updateButtonState('loading');
+            }
+            audioPlayer.play();
+        }
+    }
+
+    function updateButtonState(state) {
+        switch (state) {
+            case 'playing':
+                narrateBtn.innerHTML = '<i class="fas fa-pause"></i> Pause Narration';
+                narrateBtn.classList.add('is-playing');
+                narrateBtn.disabled = false;
+                break;
+            case 'loading':
+                narrateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Summoning...';
+                narrateBtn.disabled = true;
+                break;
+            case 'error':
+                narrateBtn.innerHTML = '<i class="fas fa-times"></i> Narration Failed';
+                narrateBtn.disabled = true;
+                break;
+            case 'paused':
+            default:
+                narrateBtn.innerHTML = '<i class="fas fa-volume-up"></i> Listen to the Tale';
+                narrateBtn.classList.remove('is-playing');
+                narrateBtn.disabled = false;
+                break;
+        }
+    }
+
     if (from === 'map') {
         const lat = urlParams.get('lat');
         const lng = urlParams.get('lng');
