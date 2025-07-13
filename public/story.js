@@ -101,8 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {
         console.error("Could not parse returnPath from sessionStorage", e);
         // Let the default HTML state (Back to Archive) remain.
-    }  backToArchiveBtn.href = `archive.html?page=${page}`;
-    }
+    }  
 
     const container = document.querySelector('.story-page-container');
     if (storyId) {
