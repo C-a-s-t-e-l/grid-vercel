@@ -3,9 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { createClient } = require('@supabase/supabase-js');
+const TextToSpeech = require('@google-cloud/text-to-speech');
 
 const app = express();
-// NOTE: Vercel handles the port, so we don't need the PORT variable for app.listen
+
 
 const myApiKey = process.env.GOOGLE_API_KEY1;
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -27,9 +28,9 @@ if (!supabaseUrl || !supabaseServiceKey || !ADMIN_SECRET) {
 }
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 const adminSupabase = createClient(supabaseUrl, supabaseServiceKey);
+// const ttsClient = new TextToSpeech.TextToSpeechClient();
+let ttsClient;
 
-// --- CORS Configuration ---
-// This allows your frontend (on the same domain) and local dev to make requests.
 const corsOptions = {
   origin: [
     'https://eerie-grid.vercel.app', // Your Vercel frontend URL
@@ -43,8 +44,18 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
 
-// --- ALL YOUR API ROUTES AND HELPER FUNCTIONS GO HERE ---
-// (No changes needed for the code below, it's correct)
+
+
+if (process.env.GOOGLE_CREDENTIALS) {
+
+    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    ttsClient = new TextToSpeech.TextToSpeechClient({ credentials });
+    console.log("TTS Client initialized with Vercel environment credentials.");
+} else {
+  
+    ttsClient = new TextToSpeech.TextToSpeechClient();
+    console.log("TTS Client initialized with local GOOGLE_APPLICATION_CREDENTIALS.");
+}
 
 const createSnippet = (fullStory) => {
     if (!fullStory) return '';
@@ -321,6 +332,51 @@ app.delete('/api/admin/comments/:id', isAdmin, async (req, res) => {
     res.status(200).json({ message: 'Comment deleted successfully' });
 });
 
-// REMOVED: app.listen(...) block
-// ADDED: The line below
+app.get('/api/narrate/:storyId', async (req, res) => {
+    const { storyId } = req.params;
+
+    try {
+      
+        const { data: story, error } = await supabase
+            .from('stories')
+            .select('full_story')
+            .eq('id', storyId)
+            .single();
+
+        if (error || !story) {
+            return res.status(404).send('Story not found.');
+        }
+
+        const storyText = story.full_story;
+
+        const request = {
+            input: { text: storyText },
+           
+            voice: { languageCode: 'fil-PH', name: 'fil-PH-Standard-D' },
+            audioConfig: { audioEncoding: 'MP3', speakingRate: 0.90, pitch: -2.5 }, // A bit slower for eerie effect
+        };
+
+        const [response] = await ttsClient.synthesizeSpeech(request);
+        const audioContent = response.audioContent;
+
+        res.setHeader('Content-Type', 'audio/mpeg');
+        res.setHeader('Content-Length', audioContent.length);
+        res.end(audioContent);
+
+    } catch (err) {
+        console.error('--- TTS API ERROR ---', err);
+        res.status(500).json({ error: 'Failed to generate narration.' });
+    }
+});
+
+// if (process.env.NODE_ENV !== 'production') {
+//     const PORT = process.env.PORT || 3000;
+//     app.listen(PORT, () => {
+//         console.log(`✅ Server is listening for local development at http://localhost:${PORT}`);
+//         console.log("   Press CTRL+C to stop the server.");
+//     });
+// }
+
+
+
 module.exports = app;
