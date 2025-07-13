@@ -1,14 +1,15 @@
 {
   "version": 2,
   "functions": {
-    "api/og-handler.js": {
-      "memory": 128
-    },
-    "api/server.js": {
-      "memory": 128
-    }
+    "api/og-handler.js": { "memory": 128 },
+    "api/server.js": { "memory": 128 },
+    "api/sitemap.js": { "memory": 128 } 
   },
   "rewrites": [
+    {
+      "source": "/sitemap.xml", 
+      "destination": "/api/sitemap"
+    },
     {
       "source": "/s/:id",
       "destination": "/api/og-handler?id=:id"
