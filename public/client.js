@@ -358,18 +358,13 @@ function displayMarkers(storiesToDisplay) {
     }
     storyMarkers = {}; 
 
-   storiesToDisplay.forEach(story => {
+ storiesToDisplay.forEach(story => {
     if (story.latitude && story.longitude) {
         const marker = L.marker([story.latitude, story.longitude], { icon: creepyIcon }).addTo(map);
-        storyMarkers[story.id] = marker; 
+        storyMarkers[story.id] = marker;
         marker.on('click', () => {
-            const center = map.getCenter();
-            const lat = center.lat.toFixed(4);
-            const lng = center.lng.toFixed(4);
-            const zoom = map.getZoom();
-
-            const storyPageUrl = `story.html?id=${story.id}&from=map&lat=${lat}&lng=${lng}&zoom=${zoom}`;
-
+            
+            const storyPageUrl = `/s/${story.id}`; 
             window.location.href = storyPageUrl;
         });
     }
