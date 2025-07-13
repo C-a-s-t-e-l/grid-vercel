@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToGridBtn = document.getElementById('back-to-grid-btn');
 
      const narrateBtn = document.getElementById('narrate-story-btn');
-    let audioPlayer = null; // We will store our <audio> element here
+    let audioPlayer = null; 
     let isPlaying = false;
     let storyIdForNarration = null;
 
@@ -20,15 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleNarration() {
         if (isPlaying) {
-            // If it's playing, pause it
+   
             audioPlayer.pause();
         } else {
-            // If it's paused or not yet created, play it
             if (!audioPlayer) {
-                // Create the audio player for the first time
                 audioPlayer = new Audio(`/api/narrate/${storyIdForNarration}`);
                 
-                // Add event listeners to manage state
                 audioPlayer.onplay = () => {
                     isPlaying = true;
                     updateButtonState('playing');
@@ -39,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 audioPlayer.onended = () => {
                     isPlaying = false;
-                    // Reset so it can be played again from the start
                     audioPlayer.currentTime = 0;
                     updateButtonState('paused');
                 };
@@ -48,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert("The spirits are interfering with the broadcast. Could not play narration.");
                     updateButtonState('error');
                 };
-                // Show a loading state while the audio buffers
                 updateButtonState('loading');
             }
             audioPlayer.play();
@@ -85,22 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const returnPath = JSON.parse(returnPathString);
 
             if (returnPath.from === 'map' && returnPath.url) {
-                // User came from the map
                 backToGridBtn.href = returnPath.url;
                 backToGridBtn.style.display = 'inline-block';
                 backToArchiveBtn.style.display = 'none';
             } else if (returnPath.from === 'archive') {
-                // User came from the archive
                 backToArchiveBtn.href = `archive.html?page=${returnPath.page || 1}`;
                 backToGridBtn.style.display = 'none';
                 backToArchiveBtn.style.display = 'inline-block';
             }
         }
-        // If there's no returnPath, the default "Back to Archive" button will show,
-        // which is a safe fallback.
+      
     } catch (e) {
         console.error("Could not parse returnPath from sessionStorage", e);
-        // Let the default HTML state (Back to Archive) remain.
     }  
 
     const container = document.querySelector('.story-page-container');

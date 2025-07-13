@@ -97,25 +97,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (storyListContainer) {
     storyListContainer.addEventListener('click', function(event) {
-        // Find the link that was clicked
         const storyLink = event.target.closest('a.btn-read');
 
         if (!storyLink) {
-            return; // Exit if the click was not on a story link
+            return; 
         }
         
-        event.preventDefault(); // Stop the link from navigating immediately
-
-        // Create the return path object
+        event.preventDefault(); 
         const returnPath = {
             from: 'archive',
-            page: currentPage // 'currentPage' is a variable you already have in archive.js
+            page: currentPage 
         };
 
-        // Save it to sessionStorage as a string
         sessionStorage.setItem('returnPath', JSON.stringify(returnPath));
 
-        // Now, navigate to the story page
         window.location.href = storyLink.href;
     });
 }

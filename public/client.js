@@ -274,7 +274,7 @@ function initMap() {
     const initialZoom = zoom ? parseInt(zoom) : 6;
     
 
-    map = L.map('map').setView(initialCenter, initialZoom); // Use the variables we just defined
+    map = L.map('map').setView(initialCenter, initialZoom); 
 
     const southWest = L.latLng(PH_BOUNDS_COORDS.minLat, PH_BOUNDS_COORDS.minLng);
     const northEast = L.latLng(PH_BOUNDS_COORDS.maxLat, PH_BOUNDS_COORDS.maxLng);
@@ -363,7 +363,7 @@ function displayMarkers(storiesToDisplay) {
         const marker = L.marker([story.latitude, story.longitude], { icon: creepyIcon }).addTo(map);
         storyMarkers[story.id] = marker;
         marker.on('click', () => {
-    // --- START: NEW CODE TO ADD ---
+  
     const center = map.getCenter();
     const lat = center.lat.toFixed(4);
     const lng = center.lng.toFixed(4);
