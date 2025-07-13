@@ -38,17 +38,58 @@ module.exports = async (req, res) => {
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <title>${story.title}</title>
+                <title>${story.title} - Eerie Grid PH</title>
+                
+                <!-- SEO Meta Description -->
+                <meta name="description" content="${story.snippet.replace(/"/g, '"')}">
+
+                <!-- Open Graph (for Facebook, etc.) -->
                 <meta property="og:title" content="${story.title}">
-                <meta property="og:description" content="${story.snippet}">
+                <meta property="og:description" content="${story.snippet.replace(/"/g, '"')}">
                 <meta property="og:url" content="${canonicalUrl}">
                 <meta property="og:image" content="https://www.maptive.com/wp-content/uploads/2024/07/The-Pentagram-Kazakhstan.png">
                 <meta property="og:type" content="article">
+                <meta property="og:site_name" content="Eerie Grid PH">
+
+                <!-- Twitter Card -->
                 <meta name="twitter:card" content="summary_large_image">
+                <meta name="twitter:title" content="${story.title}">
+                <meta name="twitter:description" content="${story.snippet.replace(/"/g, '"')}">
+                <meta name="twitter:image" content="https://www.maptive.com/wp-content/uploads/2024/07/The-Pentagram-Kazakhstan.png">
+
+                <!-- Structured Data (JSON-LD) - VERY IMPORTANT FOR GOOGLE -->
+                <script type="application/ld+json">
+                {
+                  "@context": "https://schema.org",
+                  "@type": "Article",
+                  "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "${canonicalUrl}"
+                  },
+                  "headline": "${story.title.replace(/"/g, '\\"')}",
+                  "description": "${story.snippet.replace(/"/g, '\\"')}",
+                  "image": "https://www.maptive.com/wp-content/uploads/2024/07/The-Pentagram-Kazakhstan.png",  
+                  "author": {
+                    "@type": "Person",
+                    "name": "Community Contributor" 
+                  },  
+                  "publisher": {
+                    "@type": "Organization",
+                    "name": "Eerie Grid PH",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": "https://eerie-grid.vercel.app/images/keeper_icon.png"
+                    }
+                  },
+                  "datePublished": "${new Date(story.created_at || Date.now()).toISOString()}"
+                }
+                </script>
+
             </head>
             <body>
                 <h1>${story.title}</h1>
                 <p>${story.snippet}</p>
+                <p>Read the full story at <a href="${canonicalUrl}">${canonicalUrl}</a></p>
             </body>
             </html>
         `;
