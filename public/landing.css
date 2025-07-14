@@ -9,6 +9,8 @@
     --font-creepy: 'Creepster', cursive;
     --font-narrative: 'Special Elite', cursive;
     --font-body: 'Merriweather', serif;
+     --paper-bg: #f5f1e9;
+     --stamp-color: #8c2323;
 
     --vignette-intensity: .7; 
 }
@@ -537,6 +539,189 @@ section strong {
   animation: none; 
   background-color: var(--accent-hover);
   color: #fff;
+}
+
+.featured-stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    min-height: 400px; 
+}
+
+.featured-story-card {
+    background: var(--secondary-bg);
+    background-image: url("https://png.pngtree.com/background/20210712/original/pngtree-grunge-texture-transparent-background-picture-image_1175928.jpg");
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: 40px;
+    padding-bottom: 70px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none; /* Make the card a clickable link */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.featured-story-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 15px var(--accent-hover);
+}
+
+.story-card-casetag {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    margin: 0;
+    background-color: var(--stamp-color);
+    color: var(--paper-bg);
+    padding: 4px 10px;
+    font-family: var(--font-narrative);
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 4px 0 8px 0;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.story-card-location {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.story-card-location i {
+    margin-right: 8px;
+    color: var(--accent-color);
+}
+
+.story-card-title {
+    font-family: var(--font-narrative);
+    font-size: 1.2rem;
+    line-height: 1.2;
+    color: var(--text-color);
+    text-shadow: 1px 1px 3px #000;
+    margin-bottom: 8px;
+}
+
+.story-card-author {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    padding: 4px 10px;
+    z-index: 1;
+    text-shadow: 1px 1px 4px #000, 0 0 5px #000;
+}
+
+.story-card-author::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    right: -10px;
+    bottom: -5px;
+    background: #5e1a1a;
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(6px);
+    border-radius: 30% 70% 40% 60% / 60% 40% 60% 40%;
+    transform: rotate(-4deg) scale(1.05);
+}
+
+.story-card-author::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: radial-gradient( circle at 15% 95%, var(--accent-hover) 2px, transparent 3px ), radial-gradient(circle at 90% 10%, var(--accent-hover) 3px, transparent 4px), radial-gradient(circle at 5% 5%, var(--accent-hover) 2px, transparent 3px), radial-gradient( circle at 85% 100%, var(--accent-hover) 4px, transparent 5px ), radial-gradient(circle at 50% 0%, var(--accent-hover) 2px, transparent 3px);
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    transform: rotate(5deg);
+}
+
+.story-card-snippet {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 20px;
+    color: #b0b0b0;
+}
+
+.story-card-actions {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.story-card-actions .eerie-button {
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    font-family: var(--font-narrative);
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.story-card-actions .eerie-button i {
+    margin-right: 8px;
+}
+
+.story-card-actions .eerie-button:hover {
+    background-color: var(--border-color);
+    color: #fff;
+}
+
+.story-card-actions .eerie-button.primary {
+    background-color: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-hover);
+}
+
+.story-card-actions .eerie-button.primary:hover {
+    background-color: var(--accent-hover);
+}
+
+.story-loader {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: var(--font-narrative);
+    color: var(--text-muted);
+    padding: 40px 0;
+}
+
+.footer-contact {
+    margin: 15px 0;
+    font-family: var(--font-narrative);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-contact a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.footer-contact a:hover {
+    color: var(--highlight-color);
+    text-shadow: 0 0 5px var(--accent-hover);
 }
 
 @keyframes pulse-border {

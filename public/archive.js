@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         storiesToRender.forEach(story => {
             const formattedDate = formatDate(story.created_at);
             const caseTag = `Archive #${String(story.id).padStart(4, '0')} - ${formattedDate}`;
-            const storyLink = `/s/${story.id}`;
+            const storyLink = `story.html?id=${story.id}&from=archive&page=${currentPage}`;
 
             const storyCard = `
                 <div class="story-card" data-story-id="${story.id}">

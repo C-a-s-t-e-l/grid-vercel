@@ -891,6 +891,24 @@ html {
   text-decoration: none;
 }
 
+.footer-contact {
+    margin: 15px 0;
+    font-family: var(--font-narrative);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-contact a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.footer-contact a:hover {
+    color: var(--highlight-color);
+    text-shadow: 0 0 5px var(--accent-hover);
+}
+
 @media (max-width: 992px) {
     #map-column, #form-column {
         flex: 1 1 100%;

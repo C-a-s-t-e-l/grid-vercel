@@ -377,8 +377,8 @@ function displayMarkers(storiesToDisplay) {
     sessionStorage.setItem('returnPath', JSON.stringify(returnPath));
 
 
-    const storyPageUrl = `/s/${story.id}`; 
-    window.location.href = storyPageUrl;
+    const storyPageUrl = `story.html?id=${story.id}&from=map&lat=${lat}&lng=${lng}&zoom=${zoom}`;
+window.location.href = storyPageUrl;
 });
     }
 });
