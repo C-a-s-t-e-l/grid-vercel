@@ -33,13 +33,12 @@ let ttsClient;
 
 const corsOptions = {
   origin: [
-    'https://eerie-grid.vercel.app', // Your Vercel frontend URL
-    'http://127.0.0.1:5500', // For local development
-    'http://localhost:3000' // For local development
+    'https://eerie-grid.vercel.app', // vercel frontend URL
+    'http://127.0.0.1:5500', // for local development
+    'http://localhost:3000' // for local development
   ]
 };
 app.use(cors(corsOptions));
-// --- End of CORS ---
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -80,6 +79,20 @@ const generateEmbedding = async (title, fullStory) => {
         return null;
     }
 };
+
+app.get('/api/stories/featured', async (req, res) => {
+    const { data, error } = await supabase
+        .from('stories')
+        .select('id, title, snippet, location_name, nickname')
+        .eq('is_approved', true)
+        .eq('is_featured', true)
+        .limit(4); 
+
+    if (error) {
+        return res.status(500).json({ error: error.message });
+    }
+    res.json(data);
+});
 
 async function rewriteQueryForContext(message, history) {
     if (!history || history.length === 0) {
@@ -234,8 +247,6 @@ Your response depends on what you find in the RELEVANT STORIES.
     }
 });
 
-// ... your other app.get, app.post, app.patch, app.delete routes
-// (No changes needed for them)
 
 app.post('/api/stories', async (req, res) => {
     const { title, fullStory, nickname, email, latitude, longitude, locationName } = req.body;
@@ -335,47 +346,64 @@ app.delete('/api/admin/comments/:id', isAdmin, async (req, res) => {
 app.get('/api/narrate/:storyId', async (req, res) => {
     const { storyId } = req.params;
 
-    try {
-      
-        const { data: story, error } = await supabase
-            .from('stories')
-            .select('full_story')
-            .eq('id', storyId)
-            .single();
+   try {
+    const { data: story, error } = await supabase
+        .from('stories')
+        .select('full_story')
+        .eq('id', storyId)
+        .single();
 
-        if (error || !story) {
-            return res.status(404).send('Story not found.');
-        }
-
-        const storyText = story.full_story;
-
-        const request = {
-            input: { text: storyText },
-           
-            voice: { languageCode: 'fil-PH', name: 'fil-PH-Standard-D' },
-            audioConfig: { audioEncoding: 'MP3', speakingRate: 0.90, pitch: -2.5 }, // A bit slower for eerie effect
-        };
-
-        const [response] = await ttsClient.synthesizeSpeech(request);
-        const audioContent = response.audioContent;
-
-        res.setHeader('Content-Type', 'audio/mpeg');
-        res.setHeader('Content-Length', audioContent.length);
-        res.end(audioContent);
-
-    } catch (err) {
-        console.error('--- TTS API ERROR ---', err);
-        res.status(500).json({ error: 'Failed to generate narration.' });
+    if (error || !story) {
+        return res.status(404).send('Story not found.');
     }
+
+    let storyText = story.full_story
+        .replace(/&/g, '&')
+        .replace(/</g, '<')
+        .replace(/>/g, '>');
+
+  
+    storyText = storyText.replace(/(\r\n|\n|\r){2,}/g, '\n<break time="750ms"/>\n'); 
+
+    storyText = storyText.replace(/(\r\n|\n|\r)/g, '<break time="600ms"/>'); 
+
+    const ssml = `<speak>${storyText}</speak>`;
+
+    const request = {
+        input: { ssml: ssml },
+        voice: {
+            languageCode: 'fil-PH',
+            name: 'fil-PH-Wavenet-D' 
+        },
+        audioConfig: {
+            audioEncoding: 'MP3',
+            speakingRate: 1, 
+            pitch: -2.5,       
+        },
+    };
+  
+
+
+    const [response] = await ttsClient.synthesizeSpeech(request);
+    const audioContent = response.audioContent;
+
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Content-Length', audioContent.length);
+    res.end(audioContent);
+
+} catch (err) {
+    console.error('--- TTS API ERROR ---', err);
+    res.status(500).json({ error: 'Failed to generate narration.' });
+}
 });
 
-// if (process.env.NODE_ENV !== 'production') {
-//     const PORT = process.env.PORT || 3000;
-//     app.listen(PORT, () => {
-//         console.log(`✅ Server is listening for local development at http://localhost:${PORT}`);
-//         console.log("   Press CTRL+C to stop the server.");
-//     });
-// }
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`✅ Server is listening for local development at http://localhost:${PORT}`);
+        console.log("   Press CTRL+C to stop the server.");
+    });
+}
 
 
 
