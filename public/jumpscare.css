@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-narrative);
   background-color: var(--primary-bg);
   color: var(--text-color);
   margin: 0;
@@ -29,6 +29,10 @@ body {
   background-attachment: fixed;
 }
 
+#below-note {
+  font-family: var(--font-narrative);
+  text-align: center;
+}
 
 .eerie-navbar {
   background-color: var(--tertiary-bg);
@@ -170,14 +174,14 @@ body {
 }
 
 .fade-in-on-load {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .fade-in-on-load.visible {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 @keyframes erratic-flicker {
   0% {
