@@ -93,6 +93,11 @@
     text-align: center;
     background-color: var(--tertiary-bg);
     border-top: 1px solid var(--border-color);
+
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .story-page-buttons a{

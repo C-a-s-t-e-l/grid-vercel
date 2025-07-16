@@ -257,6 +257,17 @@ function populatePage(storyData) {
     reactionButtons.forEach(button => {
         button.addEventListener('click', (event) => handleReactionClick(event, storyData.id));
     });
+
+ const viewOnGridBtn = document.getElementById('view-on-grid-btn');
+  if (viewOnGridBtn && storyData.latitude && storyData.longitude) {
+        const zoomLevel = 15;
+        
+        const mapUrl = `map.html?lat=${storyData.latitude}&lng=${storyData.longitude}&zoom=${zoomLevel}`;
+        
+        viewOnGridBtn.href = mapUrl;
+        viewOnGridBtn.style.display = 'inline-flex'; 
+    }
+
 }
 
 
