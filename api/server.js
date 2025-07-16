@@ -83,9 +83,11 @@ const generateEmbedding = async (title, fullStory) => {
 app.get('/api/stories/featured', async (req, res) => {
     const { data, error } = await supabase
         .from('stories')
-        .select('id, title, snippet, location_name, nickname')
+        
+        .select('id, title, snippet, location_name, nickname, views')
         .eq('is_approved', true)
-        .eq('is_featured', true)
+       
+        .order('views', { ascending: false, nulls: 'last' })
         .limit(4); 
 
     if (error) {
@@ -362,9 +364,7 @@ app.get('/api/narrate/:storyId', async (req, res) => {
         .replace(/</g, '<')
         .replace(/>/g, '>');
 
-  
-    storyText = storyText.replace(/(\r\n|\n|\r){2,}/g, '\n<break time="750ms"/>\n'); 
-
+    storyText = storyText.replace(/(\r\n|\n|\r){2,}/g, '\n<break time="600ms"/>\n'); 
     storyText = storyText.replace(/(\r\n|\n|\r)/g, '<break time="600ms"/>'); 
 
     const ssml = `<speak>${storyText}</speak>`;
@@ -382,14 +382,15 @@ app.get('/api/narrate/:storyId', async (req, res) => {
         },
     };
   
-
-
     const [response] = await ttsClient.synthesizeSpeech(request);
     const audioContent = response.audioContent;
 
     res.setHeader('Content-Type', 'audio/mpeg');
-    res.setHeader('Content-Length', audioContent.length);
-    res.end(audioContent);
+    res.setHeader('Content-Length', audioContent.length); 
+    res.setHeader('Accept-Ranges', 'bytes'); 
+    
+    res.status(200).send(audioContent);
+
 
 } catch (err) {
     console.error('--- TTS API ERROR ---', err);
