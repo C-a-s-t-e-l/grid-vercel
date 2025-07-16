@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let query = supabaseClient
             .from('stories')
-            .select('id, title, location_name, nickname, snippet, created_at', { count: 'exact' })
+            .select('id, title, location_name, nickname, snippet, created_at, views', { count: 'exact' }) 
             .eq('is_approved', true);
 
         if (searchTerm) {
@@ -70,29 +70,36 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        storiesToRender.forEach(story => {
-            const formattedDate = formatDate(story.created_at);
-            const caseTag = `Archive #${String(story.id).padStart(4, '0')} - ${formattedDate}`;
-            const storyLink = `story.html?id=${story.id}&from=archive&page=${currentPage}`;
+       storiesToRender.forEach(story => {
+    const formattedDate = formatDate(story.created_at);
+    const caseTag = `Archive #${String(story.id).padStart(4, '0')} - ${formattedDate}`;
+    const storyLink = `story.html?id=${story.id}&from=archive&page=${currentPage}`;
 
-            const storyCard = `
-                <div class="story-card" data-story-id="${story.id}">
-                    <p class="story-card-casetag">${caseTag}</p>
-                    <div class="story-card-content">
-                        <p class="story-card-location"><i class="fas fa-map-pin"></i>${story.location_name}</p>
-                        <h3 class="story-card-title">${story.title}</h3>
-                        <p class="story-card-author">By: ${story.nickname || 'Unknown'}</p>
-                        <p class="story-card-snippet">${story.snippet}</p>
-                    </div>
-                    <div class="story-card-actions">
-                        <a href="${storyLink}" class="eerie-button primary btn-read">
-                            <i class="fas fa-book-open"></i> Read Full Story
-                        </a>
-                    </div>
-                </div>
-            `;
-            storyListContainer.innerHTML += storyCard;
-        });
+    const storyCard = `
+        <div class="story-card" data-story-id="${story.id}">
+            <p class="story-card-casetag">${caseTag}</p>
+            
+            <!-- START: NEW VIEW COUNTER ELEMENT -->
+            <div class="story-card-views">
+                <i class="fas fa-eye"></i> ${story.views ? story.views.toLocaleString() : 0}
+            </div>
+            <!-- END: NEW VIEW COUNTER ELEMENT -->
+            
+            <div class="story-card-content">
+                <p class="story-card-location"><i class="fas fa-map-pin"></i>${story.location_name}</p>
+                <h3 class="story-card-title">${story.title}</h3>
+                <p class="story-card-author">By: ${story.nickname || 'Unknown'}</p>
+                <p class="story-card-snippet">${story.snippet}</p>
+            </div>
+            <div class="story-card-actions">
+                <a href="${storyLink}" class="eerie-button primary btn-read">
+                    <i class="fas fa-book-open"></i> Read Full Story
+                </a>
+            </div>
+        </div>
+    `;
+    storyListContainer.innerHTML += storyCard;
+});
     }
 
     if (storyListContainer) {

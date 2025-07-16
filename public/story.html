@@ -46,6 +46,7 @@
                     <p id="story-page-location"><i class="fas fa-map-pin"></i> Locating...</p>
                     <p id="story-page-author"><i class="fas fa-user-ghost"></i> By: ...</p>
                     <p id="story-page-date"><i class="fas fa-clock"></i> Submitted: ...</p>
+                    <p id="story-page-views"><i class="fas fa-eye"></i> Views: ...</p>
                 </div>
             </div>
         </header>
@@ -58,11 +59,13 @@
             </div>
             
         </article>
-       <div class="story-narration-controls">
+               <div id="narration-player" class="story-narration-controls">
             <button id="narrate-story-btn" class="eerie-button narrate-button">
                 <i class="fas fa-volume-up"></i> Listen to the Tale
             </button>
-
+            <div id="progress-bar-container" class="progress-bar-container hidden">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
         </div>
 
        

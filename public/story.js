@@ -1,52 +1,108 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- DOM Elements ---
     const urlParams = new URLSearchParams(window.location.search);
     const storyId = urlParams.get('id');
-    // const from = urlParams.get('from');
-    
     const backToArchiveBtn = document.getElementById('back-to-archive-btn');
     const backToGridBtn = document.getElementById('back-to-grid-btn');
+    const container = document.querySelector('.story-page-container');
 
-     const narrateBtn = document.getElementById('narrate-story-btn');
-    let audioPlayer = null; 
+    const narrateBtn = document.getElementById('narrate-story-btn');
+    const progressBarContainer = document.getElementById('progress-bar-container');
+    const progressBar = document.getElementById('progress-bar');
+    let audioPlayer = null;
     let isPlaying = false;
-    let storyIdForNarration = null;
-
-    //  const urlParams = new URLSearchParams(window.location.search);
-    storyIdForNarration = urlParams.get('id');
-
-    if (narrateBtn && storyIdForNarration) {
+    let isScrubbing = false;
+    let wasPlayingBeforeScrub = false; 
+    if (narrateBtn && storyId) {
         narrateBtn.addEventListener('click', toggleNarration);
     }
 
-    function toggleNarration() {
+    function initializePlayer() {
+        if (audioPlayer) return;
+
+        updateButtonState('loading');
+        audioPlayer = new Audio(`/api/narrate/${storyId}`);
+
+        audioPlayer.addEventListener('loadedmetadata', () => {
+            progressBarContainer.classList.remove('hidden');
+            updateButtonState('paused');
+        });
+        audioPlayer.addEventListener('timeupdate', updateProgress);
+        audioPlayer.addEventListener('ended', onAudioEnd);
+        audioPlayer.addEventListener('error', onAudioError);
+        
+        progressBarContainer.addEventListener('mousedown', startScrubbing);
+        document.addEventListener('mousemove', scrub);
+        document.addEventListener('mouseup', stopScrubbing);
+    }
+    
+
+    function updateProgress() {
+        if (!isScrubbing && audioPlayer && audioPlayer.duration) {
+            const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        }
+    }
+    
+    function onAudioEnd() {
+        isPlaying = false;
+        updateButtonState('paused');
+        progressBar.style.width = '0%';
+        audioPlayer.currentTime = 0;
+    }
+
+    function onAudioError() {
+        console.error("Error playing audio.");
+        alert("The spirits are interfering with the broadcast. Could not play narration.");
+        updateButtonState('error');
+    }
+
+
+    function startScrubbing(e) {
+        if (!audioPlayer || !audioPlayer.duration) return;
+        
+        wasPlayingBeforeScrub = isPlaying;
+        isScrubbing = true;
         if (isPlaying) {
-   
-            audioPlayer.pause();
+            audioPlayer.pause(); 
+        }
+        scrub(e); 
+    }
+
+    function scrub(e) {
+        if (!isScrubbing) return;
+        
+        const rect = progressBarContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+        const progress = Math.min(1, Math.max(0, clickX / width));
+        
+        const newTime = progress * audioPlayer.duration;
+        
+        audioPlayer.currentTime = newTime;
+        progressBar.style.width = `${progress * 100}%`;
+    }
+
+    function stopScrubbing() {
+        if (!isScrubbing) return;
+        
+        isScrubbing = false;
+        if (wasPlayingBeforeScrub) {
+            audioPlayer.play(); 
+        }
+    }
+
+    function toggleNarration() {
+        if (!audioPlayer) {
+            initializePlayer();
+        }
+        
+        isPlaying = !isPlaying; 
+        if (isPlaying) {
+            audioPlayer.play().then(() => updateButtonState('playing'));
         } else {
-            if (!audioPlayer) {
-                audioPlayer = new Audio(`/api/narrate/${storyIdForNarration}`);
-                
-                audioPlayer.onplay = () => {
-                    isPlaying = true;
-                    updateButtonState('playing');
-                };
-                audioPlayer.onpause = () => {
-                    isPlaying = false;
-                    updateButtonState('paused');
-                };
-                audioPlayer.onended = () => {
-                    isPlaying = false;
-                    audioPlayer.currentTime = 0;
-                    updateButtonState('paused');
-                };
-                audioPlayer.onerror = () => {
-                    console.error("Error playing audio.");
-                    alert("The spirits are interfering with the broadcast. Could not play narration.");
-                    updateButtonState('error');
-                };
-                updateButtonState('loading');
-            }
-            audioPlayer.play();
+            audioPlayer.pause();
+            updateButtonState('paused');
         }
     }
 
@@ -55,30 +111,32 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'playing':
                 narrateBtn.innerHTML = '<i class="fas fa-pause"></i> Pause Narration';
                 narrateBtn.classList.add('is-playing');
+                narrateBtn.classList.remove('is-loading');
                 narrateBtn.disabled = false;
                 break;
             case 'loading':
                 narrateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Summoning...';
+                narrateBtn.classList.add('is-loading');
                 narrateBtn.disabled = true;
                 break;
             case 'error':
                 narrateBtn.innerHTML = '<i class="fas fa-times"></i> Narration Failed';
                 narrateBtn.disabled = true;
+                progressBarContainer.classList.add('hidden');
                 break;
             case 'paused':
             default:
                 narrateBtn.innerHTML = '<i class="fas fa-volume-up"></i> Listen to the Tale';
-                narrateBtn.classList.remove('is-playing');
+                narrateBtn.classList.remove('is-playing', 'is-loading');
                 narrateBtn.disabled = false;
                 break;
         }
     }
 
-     try {
+    try {
         const returnPathString = sessionStorage.getItem('returnPath');
         if (returnPathString) {
             const returnPath = JSON.parse(returnPathString);
-
             if (returnPath.from === 'map' && returnPath.url) {
                 backToGridBtn.href = returnPath.url;
                 backToGridBtn.style.display = 'inline-block';
@@ -89,12 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 backToArchiveBtn.style.display = 'inline-block';
             }
         }
-      
     } catch (e) {
         console.error("Could not parse returnPath from sessionStorage", e);
-    }  
+    }
 
-    const container = document.querySelector('.story-page-container');
     if (storyId) {
         loadStory(storyId);
     } else {
@@ -102,12 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+
 async function loadStory(storyId) {
     const container = document.querySelector('.story-page-container');
     try {
         const { data: story, error } = await supabaseClient
             .from('stories')
-            .select('*')
+            .select('*') 
             .eq('id', storyId)
             .eq('is_approved', true)
             .single();
@@ -115,6 +173,16 @@ async function loadStory(storyId) {
         if (error || !story) {
             throw new Error("This story does not exist or has vanished into the ether.");
         }
+        
+        supabaseClient.rpc('increment_story_view', { story_id_to_update: storyId })
+          .then(({ error }) => {
+            if (error) {
+                
+                console.error('Error incrementing view count:', error);
+            }
+          });
+        
+
         populatePage(story);
     } catch (error) {
         container.innerHTML = `<h1 style="text-align: center; color: var(--accent-color); padding: 50px;">Error</h1><p style="text-align: center;">${error.message}</p>`;
@@ -134,6 +202,7 @@ function populatePage(storyData) {
     document.getElementById('story-page-author').innerHTML = `<i class="fas fa-user-ghost"></i> By: ${storyData.nickname || 'Unknown'}`;
     const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
     document.getElementById('story-page-date').innerHTML = `<i class="fas fa-clock"></i> Submitted: ${new Date(storyData.created_at).toLocaleDateString('en-US', dateOptions)}`;
+    document.getElementById('story-page-views').innerHTML = `<i class="fas fa-eye"></i> Views: ${(storyData.views + 1).toLocaleString()}`;
 
     const fullStoryText = document.getElementById('story-full-text');
     const cleanStoryText = storyData.full_story.replace(/\\n/g, '\n');
