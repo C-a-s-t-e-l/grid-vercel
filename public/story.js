@@ -268,6 +268,13 @@ function populatePage(storyData) {
         viewOnGridBtn.style.display = 'inline-flex'; 
     }
 
+    if (window.va) {
+        window.va('event', 'StoryView', { 
+            storyId: storyData.id,
+            storyTitle: storyData.title 
+        });
+    }
+
 }
 
 
