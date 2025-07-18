@@ -101,6 +101,23 @@
                 <img src="https://www.maptive.com/wp-content/uploads/2024/07/The-Pentagram-Kazakhstan.png" alt="Creepy map snippet" class="creepy-map-image"> 
             </div>
         </section>
+         <div class="section-divider">
+    <i class="fa-solid fa-skull-crossbones"></i>
+</div>
+<section class="keeper-note-promo-section">
+        <a href="keepers-note.html" class="keeper-note-promo">
+            <div class="promo-icon">
+                <i class="fas fa-book-dead"></i>
+            </div>
+            <div class="promo-text">
+                <h3>A Note from the Keeper</h3>
+                <p>Before you proceed, read a crucial message regarding the nature of this archive... and the dangers within. Understand the pact you make by delving deeper.</p>
+            </div>
+            <div class="promo-arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </a>
+    </section>
 
         <div class="section-divider">
             <i class="fa-solid fa-skull-crossbones"></i>
@@ -145,25 +162,9 @@
             </div>
         </section>
 
-        <div class="section-divider">
-    <i class="fa-solid fa-skull-crossbones"></i>
-</div>
+       
 
-  <!-- START: New Keeper's Note Promo Section -->
-    <section class="keeper-note-promo-section">
-        <a href="keepers-note.html" class="keeper-note-promo">
-            <div class="promo-icon">
-                <i class="fas fa-book-dead"></i>
-            </div>
-            <div class="promo-text">
-                <h3>A Note from the Keeper</h3>
-                <p>Before you proceed, read a crucial message regarding the nature of this archive... and the dangers within. Understand the pact you make by delving deeper.</p>
-            </div>
-            <div class="promo-arrow">
-                <i class="fas fa-arrow-right"></i>
-            </div>
-        </a>
-    </section>
+    
       <div class="section-divider">
     <i class="fa-solid fa-skull-crossbones"></i>
 </div>
@@ -242,11 +243,11 @@
     storyCard.innerHTML = `
         <p class="story-card-casetag">${caseTag}</p>
 
-        <!-- START: NEW VIEW COUNTER ELEMENT -->
+      
         <div class="story-card-views">
             <i class="fas fa-eye"></i> ${story.views ? story.views.toLocaleString() : 0}
         </div>
-        <!-- END: NEW VIEW COUNTER ELEMENT -->
+        
 
         <div class="story-card-content">
             <p class="story-card-location"><i class="fas fa-map-pin"></i>${story.location_name}</p>
