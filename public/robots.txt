@@ -1,6 +1,7 @@
-# public/robots.txt
+# public/robots.txt (Updated Version)
 
 User-agent: *
-Allow: /
+Allow: /sitemap.xml
+Allow: /s/
 
 Sitemap: https://eerie-grid.vercel.app/sitemap.xml
