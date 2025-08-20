@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- DOM Elements ---
+   
     const trigger = document.getElementById('jumpscare-trigger');
     const container = document.getElementById('jumpscare-container');
     const audio = document.getElementById('jumpscare-audio');

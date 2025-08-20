@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creature Codex - Eerie Grid PH</title>
- 
+    <title>Artifact Vault - Eerie Grid PH</title>
+    
     <link rel="icon" href="https://cdn-icons-png.freepik.com/256/8494/8494367.png" type="image/png">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="codex.css">
-    <link rel="stylesheet" href="chatbot.css">   
+    <link rel="stylesheet" href="artifacts.css">
+    <link rel="stylesheet" href="chatbot.css">
 </head>
-<body class="codex-page-body">
+<body class="lore-page-body">
 
     <nav class="eerie-navbar">
         <div class="nav-container">
@@ -32,50 +32,61 @@
                 <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="map.html"><i class="fas fa-map-marked-alt"></i> The Grid</a></li>
                 <li><a href="archive.html"><i class="fas fa-archive"></i> The Archive</a></li>
-                <li><a href="codex.html" class="active"><i class="fas fa-book-skull"></i> Creature Codex</a></li> 
-                <li><a href="artifacts.html"><i class="fas fa-shield-halved"></i> Artifact Vault</a></li> 
+                <li><a href="codex.html"><i class="fas fa-book-skull"></i> Creature Codex</a></li> 
+                <li><a href="artifacts.html" class="active"><i class="fas fa-shield-halved"></i> Artifact Vault</a></li> 
             </ul>
         </div>
     </nav>
 
-    <div class="codex-container">
+    <div class="lore-container">
         <header class="page-header">
-            <h1>The Creature Codex</h1>
-            <p>An archive of entities encountered in the Philippine archipelago. Know your enemy.</p>
+            <h1>The Artifact Vault</h1>
+            <p>A catalogue of objects imbued with paranormal energy. Handle with care.</p>
         </header>
 
-        <div id="codex-grid" class="codex-grid-container"></div>
+        <div id="artifact-grid" class="artifact-grid-container"></div>
+
     </div>
 
-    <div id="codex-modal" class="modal">
+    <div id="artifact-modal" class="modal">
         <div class="modal-outer-frame"> 
             <div class="modal-content">
-                <button id="codex-modal-close-button" class="modal-close" aria-label="Close creature details">
+                <button id="artifact-modal-close-button" class="modal-close" aria-label="Close artifact details">
                     <i class="fas fa-times"></i> 
                 </button>
                 
-                <img id="modal-codex-image" src="" alt="Creature Image" class="modal-codex-image-header">
-
-                <div class="modal-body-scrollable">
+                <img id="modal-artifact-image" src="" alt="Artifact Image" class="modal-codex-image-header">
+    
+                <div class="modal-body-scrollable"> 
                     <div class="modal-header-creepy">
-                        <h2 id="modal-codex-title">Creature Name Here</h2>
+                        <h2 id="modal-artifact-title">Artifact Title Here</h2>
+                        <p id="modal-artifact-threat-level">Classification: Unknown</p>
                     </div>
-                    <div class="modal-story-document"> 
-                        <div id="modal-codex-description" class="story-text-container"></div>
-                        
+                    <div class="modal-story-document">
                         <div class="codex-details-section">
-                            <h3><i class="fas fa-signature"></i> Known Characteristics</h3>
-                            <ul id="modal-codex-characteristics"></ul>
+                            <h3><i class="fas fa-map-signs"></i> Origin</h3>
+                            <div id="modal-artifact-origin" class="story-text-container"></div>
                         </div>
 
                         <div class="codex-details-section">
-                            <h3><i class="fas fa-shield-alt"></i> Countermeasures</h3>
-                            <p id="modal-codex-warning"></p>
+                            <h3><i class="fas fa-eye"></i> Physical Description</h3>
+                            <div id="modal-artifact-description" class="story-text-container"></div>
+                        </div>
+
+                        <div class="codex-details-section">
+                            <h3><i class="fas fa-bolt"></i> Known Properties</h3>
+                            <div id="modal-artifact-properties" class="story-text-container"></div>
+                        </div>
+                        
+                        <div class="codex-details-section">
+                            <h3><i class="fas fa-gavel"></i> Acquisition & Handling</h3>
+                            <div id="modal-artifact-handling" class="story-text-container"></div>
                         </div>
                     </div>
                 </div>
+    
                  <div class="modal-footer-creepy">
-                    <p><i class="fas fa-exclamation-triangle"></i> Information is power. Use it wisely.</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Knowledge is a tool. Some tools are sharper than others.</p>
                 </div>
             </div>
         </div>
@@ -104,13 +115,13 @@
         <div class="footer-contact">
             <p>For inquiries or to send a dispatch: <a href="mailto:ezzyllena@gmail.com">ezzyllena@gmail.com</a></p>
         </div>
-        <p>© <span id="currentYearMap"></span> Eerie Grid PH. The archive is eternal.</p>
+        <p>© <span id="currentYearArtifacts"></span> Eerie Grid PH. Some things are best left unfound.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-client.js"></script>
     <script src="chatbot.js"></script>
-    <script src="codex.js"></script>
+    <script src="artifacts.js"></script>
     <script>
       window.va = window.va || function () { (window.va.q = window.va.q || []).push(arguments); };
     </script>

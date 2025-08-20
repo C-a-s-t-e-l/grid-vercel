@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eerie Grid - Admin Panel</title>
+    <title>Eerie Grid - Curation Deck</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link rel="stylesheet" href="admin.css">
     <link rel="icon" href="https://cdn-icons-png.freepik.com/256/8494/8494367.png" type="image/png">
 </head>
 <body>
 
-<nav id="admin-nav" class="admin-nav hidden">
-    <a href="index.html" class="nav-link">
-        <i class="fas fa-home"></i> Go to Main Site
-    </a>
-    <button id="logout-button" class="nav-logout-btn">
-        <i class="fas fa-sign-out-alt"></i> Logout
-    </button>
-</nav>
-
-    <header class="admin-header">
-        <h1>Eerie Grid PH - Content Curation</h1>
-        <p>Manage pending stories and comments.</p>
-    </header>
-
-    <div id="auth-container">
-        <h2>Admin Access</h2>
-        <input type="password" id="admin-secret" placeholder="Enter Admin Secret Key">
+<div id="auth-container">
+    <div class="auth-box">
+        <h2>CURATION DECK ACCESS</h2>
+        <p>Authentication Required</p>
+        <div class="input-wrapper">
+            <i class="fas fa-key"></i>
+            <input type="password" id="admin-secret" placeholder="Enter Admin Secret Key">
+        </div>
         <button id="auth-button">Authenticate</button>
     </div>
+</div>
 
-    <main id="admin-content" class="hidden">
+<div id="admin-view" class="hidden">
+    <header class="admin-header">
+        <div class="header-content">
+            <h1>Archive Moderation Page</h1>
+            <p>Review and manage incoming transmissions from the field.</p>
+        </div>
+        <div class="header-actions">
+             <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i> Go to Main Site
+            </a>
+            <button id="logout-button" class="nav-logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <main id="admin-content">
         <section class="controls-section">
             <div class="search-wrapper">
                 <i class="fas fa-search search-icon"></i>
@@ -47,63 +55,61 @@
             <div class="sort-wrapper">
                 <label for="sort-stories"><i class="fas fa-sort-amount-down"></i> Sort by:</label>
                 <select id="sort-stories">
-                    <option value="newest" selected>Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                    <option value="title-az">Title (A-Z)</option>
+                    <option value="created_at-desc" selected>Newest First</option>
+                    <option value="created_at-asc">Oldest First</option>
+                    <option value="title-asc">Title (A-Z)</option>
                 </select>
             </div>
         </section>
 
-        <div id="stories-table-container">
+        <div class="table-container">
+            <div class="table-header">
+                <div class="col-status">Status</div>
+                <div class="col-title">Title / Author</div>
+                <div class="col-location">Location</div>
+                <div class="col-date">Submitted</div>
+                <div class="col-actions">Actions</div>
+            </div>
+            <div id="stories-list-container">
+            </div>
         </div>
 
         <div id="pagination-container" class="pagination"></div>
+    </main>
+</div>
 
-        <div id="comments-modal" class="modal hidden">
+<div id="edit-story-modal" class="modal hidden">
     <div class="modal-content">
-        <button id="comments-modal-close-button" class="modal-close" aria-label="Close comments modal">
+        <button id="modal-close-button" class="modal-close" aria-label="Close edit modal">
             <i class="fas fa-times"></i>
         </button>
-        <h2 id="comments-modal-title">Comments</h2>
-        <div id="comments-modal-list-container" class="comments-modal-list">
-        </div>
+        <h2>Edit Transmission</h2>
+        <form id="edit-story-form">
+            <input type="hidden" id="edit-story-id">
+            <div class="form-field">
+                <label for="edit-title">Title</label>
+                <input type="text" id="edit-title" required>
+            </div>
+            <div class="form-field">
+                <label for="edit-nickname">Nickname</label>
+                <input type="text" id="edit-nickname" required>
+            </div>
+            <div class="form-field">
+                <label for="edit-location">Location</label>
+                <input type="text" id="edit-location" required>
+            </div>
+            <div class="form-field">
+                <label for="edit-full-story">Full Story</label>
+                <textarea id="edit-full-story" rows="10" required></textarea>
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancel-edit-button">Cancel</button>
+                <button type="submit" id="save-story-button" class="action-btn-save">Save Changes</button>
+            </div>
+        </form>
     </div>
 </div>
 
-    </main>
-
-    <div id="edit-story-modal" class="modal hidden">
-        <div class="modal-content">
-            <button id="modal-close-button" class="modal-close" aria-label="Close edit modal">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2>Edit Story</h2>
-            <form id="edit-story-form">
-                <input type="hidden" id="edit-story-id">
-                <div class="form-field">
-                    <label for="edit-title">Title</label>
-                    <input type="text" id="edit-title" required>
-                </div>
-                <div class="form-field">
-                    <label for="edit-nickname">Nickname</label>
-                    <input type="text" id="edit-nickname" required>
-                </div>
-                <div class="form-field">
-                    <label for="edit-location">Location</label>
-                    <input type="text" id="edit-location" required>
-                </div>
-                <div class="form-field">
-                    <label for="edit-full-story">Full Story</label>
-                    <textarea id="edit-full-story" rows="10" required></textarea>
-                </div>
-                <div class="modal-actions">
-                    <button type="submit" id="save-story-button" class="action-approve">Save Changes</button>
-                    <button type="button" id="cancel-edit-button">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>

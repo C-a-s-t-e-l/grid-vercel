@@ -55,7 +55,6 @@ async function generateAndStoreEmbeddings() {
             } else {
                 console.log(`Successfully stored embedding for story ID: ${story.id}.`);
             }
-            // A delay to be kind to the API and avoid rate limits
             await new Promise(resolve => setTimeout(resolve, 1100));
 
         } catch (e) {

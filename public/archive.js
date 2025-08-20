@@ -79,11 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="story-card" data-story-id="${story.id}">
             <p class="story-card-casetag">${caseTag}</p>
             
-            <!-- START: NEW VIEW COUNTER ELEMENT -->
             <div class="story-card-views">
                 <i class="fas fa-eye"></i> ${story.views ? story.views.toLocaleString() : 0}
             </div>
-            <!-- END: NEW VIEW COUNTER ELEMENT -->
+           
             
             <div class="story-card-content">
                 <p class="story-card-location"><i class="fas fa-map-pin"></i>${story.location_name}</p>

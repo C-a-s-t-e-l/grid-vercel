@@ -628,7 +628,7 @@ html {
 }
 .comment-form button[type="submit"] {
   display: block;
-  margin: 10px 0 0 auto; /* Aligns button to the right */
+  margin: 10px 0 0 auto; 
 }
 
 .modal-document-footer {
@@ -729,7 +729,7 @@ html {
   padding-top: 15px;
   border-top: 1px solid var(--border-color);
   display: flex;
-  justify-content: center; /* Center the content */
+  justify-content: center; 
   align-items: center;
   gap: 15px;
 }

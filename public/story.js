@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- DOM Elements ---
+   
     const urlParams = new URLSearchParams(window.location.search);
     const storyId = urlParams.get('id');
     const backToArchiveBtn = document.getElementById('back-to-archive-btn');

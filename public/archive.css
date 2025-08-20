@@ -566,7 +566,7 @@
 }
 .comment-form button[type="submit"] {
   display: block;
-  margin: 10px 0 0 auto; /* Aligns button to the right */
+  margin: 10px 0 0 auto; 
 }
 
 .eerie-button {

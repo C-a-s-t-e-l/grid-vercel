@@ -562,7 +562,7 @@ section strong {
     padding-bottom: 70px;
     position: relative;
     overflow: hidden;
-    text-decoration: none; /* Make the card a clickable link */
+    text-decoration: none; 
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -724,7 +724,6 @@ section strong {
     text-shadow: 0 0 5px var(--accent-hover);
 }
 
-/* Keeper's Note Promo Section */
 .keeper-note-promo-section {
     padding: 0;
     border: none;
