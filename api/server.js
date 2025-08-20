@@ -19,7 +19,7 @@ if (!myApiKey) {
 }
 const genAI = new GoogleGenerativeAI(myApiKey);
 
-const chatModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+const chatModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
 
 if (!supabaseUrl || !supabaseServiceKey || !ADMIN_SECRET) {
@@ -28,14 +28,13 @@ if (!supabaseUrl || !supabaseServiceKey || !ADMIN_SECRET) {
 }
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 const adminSupabase = createClient(supabaseUrl, supabaseServiceKey);
-// const ttsClient = new TextToSpeech.TextToSpeechClient();
 let ttsClient;
 
 const corsOptions = {
   origin: [
-    'https://eerie-grid.vercel.app', // vercel frontend URL
-    'http://127.0.0.1:5500', // for local development
-    'http://localhost:3000' // for local development
+    'https://eerie-grid.vercel.app', 
+    'http://127.0.0.1:5500', 
+    'http://localhost:3000' 
   ]
 };
 app.use(cors(corsOptions));
@@ -288,16 +287,52 @@ const isAdmin = (req, res, next) => {
 
 
 app.get('/api/admin/stories', isAdmin, async (req, res) => {
-    const { data, error } = await adminSupabase
-        .from('stories')
-        .select('*, comments(*)')
-        .order('created_at', { ascending: false });
+    const { 
+        page = 1, 
+        limit = 10, 
+        status = 'all', 
+        search = '',
+        sortBy = 'created_at',
+        sortOrder = 'desc'
+    } = req.query;
 
-    if (error) {
+    const pageNum = parseInt(page, 10);
+    const limitNum = parseInt(limit, 10);
+    const startIndex = (pageNum - 1) * limitNum;
+    const endIndex = startIndex + limitNum - 1;
+
+    try {
+        let query = adminSupabase
+            .from('stories')
+            .select('*, comments(*)', { count: 'exact' });
+
+        if (status === 'pending') {
+            query = query.eq('is_approved', false);
+        } else if (status === 'approved') {
+            query = query.eq('is_approved', true);
+        }
+
+        if (search) {
+            const searchTerm = `%${search}%`;
+            query = query.or(`title.ilike.${searchTerm},nickname.ilike.${searchTerm},location_name.ilike.${searchTerm}`);
+        }
+
+        query = query
+            .order(sortBy, { ascending: sortOrder === 'asc' })
+            .range(startIndex, endIndex);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            throw error;
+        }
+
+        res.json({ stories: data, totalCount: count });
+
+    } catch (error) {
         console.error('Admin GET stories error:', error);
         return res.status(500).json({ error: error.message });
     }
-    res.json(data);
 });
 
 app.patch('/api/admin/stories/:id/approve', isAdmin, async (req, res) => {
