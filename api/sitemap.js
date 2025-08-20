@@ -1,20 +1,21 @@
 const { createClient } = require('@supabase/supabase-js');
-
-const supabaseUrl = 'https://nslmlulajnbinbzurhrz.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zbG1sdWxham5iaW5ienVyaHJ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5NDQzMjcsImV4cCI6MjA2NzUyMDMyN30.M7bF4Hw_dUP8tS7MPJf-sAZQaPBZ7Ar5hf2gde_w1EU';
+require('dotenv').config();
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 
 const WEBSITE_URL = 'https://eerie-grid.vercel.app';
 
 module.exports = async (req, res) => {
     res.setHeader('Content-Type', 'application/xml');
-    // Cache for 12 hours
+  
     res.setHeader('Cache-Control', 's-maxage=43200, stale-while-revalidate'); 
 
     try {
         const { data: stories, error } = await supabase
             .from('stories')
-            .select('id, created_at') // FIX: Changed 'updated_at' to 'created_at'
+            .select('id, created_at') 
             .eq('is_approved', true);
 
         if (error) {
@@ -25,8 +26,7 @@ module.exports = async (req, res) => {
         let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
         xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
-        // Add static pages
-        const staticPages = ['/', '/map.html', '/archive.html', '/codex.html', '/lore.html', '/keepers-note.html'];
+        const staticPages = ['/', '/map.html', '/archive.html', '/codex.html', '/artifacts.html', '/keepers-note.html'];
         staticPages.forEach(page => {
             xml += `
               <url>
@@ -37,7 +37,6 @@ module.exports = async (req, res) => {
             `;
         });
 
-        // Add dynamic story pages
         stories.forEach(story => {
             xml += `
               <url>
