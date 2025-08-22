@@ -66,7 +66,7 @@
                 <span>Archive Keeper</span>
             </div>
               <div class="chat-header-buttons">
-                <button id="clear-chat-button" class="chat-header-button" title="Start New Conversation"> <img src="https://icon-library.com/images/reset-icon-png/reset-icon-png-23.jpg" alt="">
+                <button id="clear-chat-button" class="chat-header-button" title="Start New Conversation"> <img src="https://nslmlulajnbinbzurhrz.supabase.co/storage/v1/object/public/lore_assets/assets/undo.png" alt="">
              </button>
             <button id="chat-close-button" title="Close conversation">×</button>
               </div>
@@ -204,6 +204,9 @@
                <div class="footer-contact">
                 <p>For inquiries or to send a dispatch: <a href="mailto:ezzyllena@gmail.com">ezzyllena@gmail.com</a></p>
              </div>
+             <button id="install-button" class="eerie-button" style="display: none;">
+    <i class="fas fa-download"></i> Install Eerie Grid
+</button>
               <div class="footer-copyright">
              © <span id="currentYear">2025</span> Eerie Grid PH. All souls documented. Venture responsibly.
              </div>
@@ -316,6 +319,29 @@
         .catch(err => {
           console.log('Service Worker registration failed:', err);
         });
+    });
+  }
+</script>
+
+<script>
+  let deferredPrompt;
+  const installButton = document.getElementById('install-button');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installButton) {
+      installButton.style.display = 'inline-block';
+    }
+  });
+
+  if (installButton) {
+    installButton.addEventListener('click', async () => {
+      installButton.style.display = 'none';
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response to the install prompt: ${outcome}`);
+      deferredPrompt = null;
     });
   }
 </script>
