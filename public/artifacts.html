@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="artifacts.css">
     <link rel="stylesheet" href="chatbot.css">
+
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body class="lore-page-body">
 
@@ -125,6 +127,20 @@
     <script>
       window.va = window.va || function () { (window.va.q = window.va.q || []).push(arguments); };
     </script>
+
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(err => {
+          console.log('Service Worker registration failed:', err);
+        });
+    });
+  }
+</script>
     <script src="/_vercel/insights/script.js"></script>
 </body>
 </html>
